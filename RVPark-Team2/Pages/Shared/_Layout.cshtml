@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RVPark_Team2</title>
+
+    <script type="importmap"></script>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @RenderSection("Styles", required: false)
+
+    <link rel="stylesheet" href="~/RVPark_Team2.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-links">
+            <a href="/">HOME</a>
+            <a href="#">AVAILABILITY</a>
+            <a href="#">RESERVATIONS</a>
+            <a href="#">CONTACT</a>
+        </div>
+
+        <div class="login">
+            <button>Log In</button>
+        </div>
+    </header>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="custom-footer">
+        <div class="footer-content">
+            <div>
+                <h4>Email</h4>
+                <p>hello@reallygreatsite.com</p>
+            </div>
+            <div>
+                <h4>Phone</h4>
+                <p>(123)-456-7890</p>
+            </div>
+            <div>
+                <p>
+                    For further assistance, please call our support team at
+                    (123)-456-7890.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

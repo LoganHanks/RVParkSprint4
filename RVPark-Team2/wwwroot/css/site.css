@@ -1,0 +1,71 @@
+/* ==============================
+   GLOBAL LAYOUT (NAVBAR, ETC)
+   ============================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2f4f58;
+    padding: 18px 50px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-links a {
+    margin-right: 25px;
+    color: #e0f2f1;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+}
+
+.login button {
+    padding: 10px 22px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background-color: #9fb8c1;
+    color: #12343b;
+    transition: background-color 0.2s ease;
+}
+
+.login button:hover {
+    background-color: #c2d3da;
+}
+
+/* ==============================
+   MAIN
+   ============================== */
+main {
+    width: 100%;
+}
+
+/* ==============================
+   FOOTER
+   ============================== */
+.custom-footer {
+    background-color: #12343b;
+    color: #cfd8dc;
+    padding: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content h4 {
+    margin-bottom: 5px;
+}
