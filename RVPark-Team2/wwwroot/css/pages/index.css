@@ -1,0 +1,47 @@
+﻿.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    background-color: #2f4f58;
+    padding: 80px 40px;
+    color: #dbe7ea;
+    min-height: 70vh;
+}
+
+.hero-left {
+    max-width: 500px;
+}
+
+.hero-left h1 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.cta-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    background-color: #9fb8c1;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hero-right img {
+    width: clamp(280px, 35vw, 600px);
+    height: auto;
+    border-radius: 12px;
+}
+
+.info-section {
+    background-color: #12343b;
+    color: #cfd8dc;
+    padding: 50px;
+}
+
+.info-section p {
+    max-width: 700px;
+    font-size: 20px;
+    font-weight: bold;
+}
