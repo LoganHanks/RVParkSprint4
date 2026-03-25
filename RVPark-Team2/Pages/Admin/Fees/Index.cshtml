@@ -1,0 +1,62 @@
+﻿@page
+@model RVPark_Team2.Pages.Admin.Fees.IndexModel
+
+@{
+    ViewData["Title"] = "Manage Fees";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/admin-fees.css" />
+}
+
+<div class="fees-container">
+
+    <h1>Fees for Reservation @Request.Query["reservationId"]</h1>
+
+    <div style="margin-bottom: 15px;">
+        <a asp-page="Create" asp-route-reservationId="@Request.Query["reservationId"]"
+           class="btn btn-primary">
+            + Add Fee
+        </a>
+
+        <a asp-page="/Admin/Reservations/Index"
+           class="btn btn-secondary">
+            ← Back to Reservations
+        </a>
+    </div>
+
+    @if (Model.Fee != null && Model.Fee.Any())
+    {
+        <div class="fees-table">
+            <div class="table-header">
+                <span>Fee</span>
+                <span>Amount</span>
+                <span>Reservation</span>
+                <span>Actions</span>
+            </div>
+
+            @foreach (var item in Model.Fee)
+            {
+                <div class="table-row">
+                    <span>@item.FeeName</span>
+
+                    <span>$@item.Amount.ToString("F2")</span>
+
+                    <span>
+                        #@item.ReservationId - @item.Reservation?.CustomerName
+                    </span>
+
+                    <span>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </span>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No fees found for this reservation.</p>
+    }
+
+</div>
