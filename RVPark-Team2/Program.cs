@@ -1,6 +1,15 @@
+using RVPark_Team2.Data;
+using Microsoft.EntityFrameworkCore;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// This is the builder that helps us hook up the database - Logan H.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

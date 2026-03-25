@@ -1,0 +1,65 @@
+﻿@page
+@model RVPark_Team2.Pages.Admin.Reservations.IndexModel
+@{
+    ViewData["Title"] = "Manage Reservations";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/admin-reservations.css" />
+}
+
+<div class="reservations-container">
+
+    <h1>Manage Reservations</h1>
+
+    <form method="get" class="search-form">
+        <input type="text"
+               name="SearchTerm"
+               value="@Model.SearchTerm"
+               placeholder="Search by ID or Customer Name" />
+        <button type="submit">Search</button>
+    </form>
+
+    @if (Model.Results != null && Model.Results.Any())
+    {
+        <div class="results-table">
+            <div class="table-header">
+                <span>ID</span>
+                <span>Customer</span>
+                <span>Dates</span>
+                <span>Status</span>
+                <span>Actions</span>
+            </div>
+
+            @foreach (var r in Model.Results)
+            {
+                <div class="table-row">
+                    <span>@r.Id</span>
+                    <span>@r.CustomerName</span>
+                    <span>
+                        @r.StartDate.ToShortDateString() -
+                        @r.EndDate.ToShortDateString()
+                    </span>
+                    <span>
+                        @if (r.IsCancelled)
+                        {
+                            <span class="status-badge cancelled">Cancelled</span>
+                        }
+                        else
+                        {
+                            <span class="status-badge active">Active</span>
+                        }
+                    </span>
+                    <span>
+                        <a asp-page="Edit" asp-route-id="@r.Id">Edit</a>
+                    </span>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No reservations found.</p>
+    }
+
+</div>
