@@ -87,6 +87,8 @@ namespace RVPark_Team2.Data
         {
         }
         public DbSet<Reservation> Reservations { get; set; }
+
+        public DbSet<Employee> Employees { get; set; } //AI helped with this, and I based it off of the reservations one.
         public DbSet<Fee> Fees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
