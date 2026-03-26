@@ -1,0 +1,58 @@
+﻿@page
+@model RVPark_Team2.Pages.Admin.Fees.EditModel
+
+@{
+    ViewData["Title"] = "Edit Fee";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/admin-edit-fees.css" />
+}
+
+<div class="edit-container">
+
+    <h1>Edit Fee</h1>
+
+    <form method="post" class="edit-form">
+
+        <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+        <input type="hidden" asp-for="Fee.Id" />
+        <input type="hidden" asp-for="Fee.ReservationId" />
+
+        <div class="form-group">
+            <label>Reservation</label>
+            <div class="readonly-field">
+                #@Model.Fee.ReservationId
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Fee.FeeName"></label>
+            <input asp-for="Fee.FeeName" />
+            <span asp-validation-for="Fee.FeeName"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Fee.Amount"></label>
+            <input asp-for="Fee.Amount" type="number" step="0.01" min="0.01" />
+            <span asp-validation-for="Fee.Amount"></span>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="save-btn">Save Changes</button>
+
+            <a asp-page="Index"
+               asp-route-reservationId="@Model.Fee.ReservationId"
+               class="cancel-btn">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
