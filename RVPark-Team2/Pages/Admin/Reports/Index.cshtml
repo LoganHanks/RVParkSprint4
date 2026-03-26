@@ -1,0 +1,116 @@
+@page
+@model RVPark_Team2.Pages.Admin.Reports.IndexModel
+@{
+    ViewData["Title"] = "Reservation Reports";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/admin-reports.css" />
+}
+
+<div class="reports-container">
+
+    <h1>Reservation Reports</h1>
+
+    <form method="get" class="search-form">
+        <div class="date-inputs">
+            <label>
+                Start Date
+                <input type="date" name="StartDate" value="@Model.StartDate?.ToString("yyyy-MM-dd")" required />
+            </label>
+            <label>
+                End Date
+                <input type="date" name="EndDate" value="@Model.EndDate?.ToString("yyyy-MM-dd")" required />
+            </label>
+        </div>
+        <button type="submit">Generate Report</button>
+    </form>
+
+    @if (Model.HasSearched)
+    {
+        <section class="report-section">
+            <h2>In Progress (@Model.InProgress.Count)</h2>
+            @if (Model.InProgress.Any())
+            {
+                <div class="results-table">
+                    <div class="table-header">
+                        <span>Customer</span>
+                        <span>Email</span>
+                        <span>Site</span>
+                        <span>Dates</span>
+                    </div>
+                    @foreach (var row in Model.InProgress)
+                    {
+                        <div class="table-row">
+                            <span>@row.CustomerName</span>
+                            <span>@row.CustomerEmail</span>
+                            <span>@row.SiteNumber</span>
+                            <span>@row.StartDate.ToShortDateString() – @row.EndDate.ToShortDateString()</span>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No in-progress reservations in this range.</p>
+            }
+        </section>
+
+        <section class="report-section">
+            <h2>Upcoming (@Model.Upcoming.Count)</h2>
+            @if (Model.Upcoming.Any())
+            {
+                <div class="results-table">
+                    <div class="table-header">
+                        <span>Customer</span>
+                        <span>Email</span>
+                        <span>Site</span>
+                        <span>Dates</span>
+                    </div>
+                    @foreach (var row in Model.Upcoming)
+                    {
+                        <div class="table-row">
+                            <span>@row.CustomerName</span>
+                            <span>@row.CustomerEmail</span>
+                            <span>@row.SiteNumber</span>
+                            <span>@row.StartDate.ToShortDateString() – @row.EndDate.ToShortDateString()</span>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No upcoming reservations in this range.</p>
+            }
+        </section>
+
+        <section class="report-section">
+            <h2>Completed (@Model.Completed.Count)</h2>
+            @if (Model.Completed.Any())
+            {
+                <div class="results-table">
+                    <div class="table-header">
+                        <span>Customer</span>
+                        <span>Email</span>
+                        <span>Site</span>
+                        <span>Dates</span>
+                    </div>
+                    @foreach (var row in Model.Completed)
+                    {
+                        <div class="table-row">
+                            <span>@row.CustomerName</span>
+                            <span>@row.CustomerEmail</span>
+                            <span>@row.SiteNumber</span>
+                            <span>@row.StartDate.ToShortDateString() – @row.EndDate.ToShortDateString()</span>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No completed reservations in this range.</p>
+            }
+        </section>
+    }
+
+</div>

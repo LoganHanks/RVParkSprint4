@@ -1,10 +1,12 @@
-﻿namespace RVPark_Team2.Models
+namespace RVPark_Team2.Models
 {
     public class Reservation
     {
         public int Id { get; set; }
 
         public string CustomerName { get; set; } = string.Empty;
+
+        public string CustomerEmail { get; set; } = string.Empty;
 
         public int SiteId { get; set; }
 

@@ -132,6 +132,7 @@ namespace RVPark_Team2.Data
                 {
                     Id = 1,
                     CustomerName = "Test User",
+                    CustomerEmail = "testuser@email.com",
                     SiteId = 1,
                     StartDate = new DateTime(2026, 1, 1),
                     EndDate = new DateTime(2026, 1, 4),
