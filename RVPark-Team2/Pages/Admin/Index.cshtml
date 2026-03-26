@@ -3,3 +3,24 @@
 @{
     ViewData["Title"] = "Admin Dashboard";
 }
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/admin-dashboard.css" />
+}
+
+<div class="dashboard-container">
+
+    <h1>Admin Dashboard</h1>
+
+    <div class="dashboard-grid">
+        <a href="/Admin/Sites" class="dashboard-card">Manage Available Sites</a>
+        @* TODO: Add the pricing page (ADM2) *@
+        <a href="/Admin/Pricing" class="dashboard-card">Change Site Pricing</a>
+        <a href="/Admin/Reservations" class="dashboard-card">Edit Reservations</a>
+        @* TODO: Add the report page (ADM3) *@
+        <a href="/Admin/Reports" class="dashboard-card">Reservations Report</a>
+        @* TODO: Add the employees page (ADM6) *@
+        <a href="/Admin/Employees" class="dashboard-card">Manage Employee Accounts</a>
+    </div>
+
+</div>
