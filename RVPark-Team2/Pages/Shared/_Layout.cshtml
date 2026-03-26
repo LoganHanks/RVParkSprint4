@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,15 +17,41 @@
 <body>
     <header class="navbar">
         <div class="nav-links">
-            <a href="/">HOME</a>
-            <a href="#">AVAILABILITY</a>
-            <a href="#">RESERVATIONS</a>
-            <a href="#">CONTACT</a>
-            <a asp-page="/Admin/Employees/Index">EMPLOYEES</a> @* AI helped modify my link to connect it to my page for now.*@
+            @* If the user is on the admin page, show the admin links instead of the standard links *@
+            @if (Context.Request.Path.StartsWithSegments("/Admin"))
+            {
+                <a href="/">HOME</a>
+                <a href="/Admin/Sites">SITES</a>
+                @* TODO: Add the pricing page (ADM2)*@
+                <a href="/Admin/Pricing">PRICING</a>
+                <a href="/Admin/Reservations">RESERVATIONS</a>
+                 @* TODO: Add the report page (ADM3)*@
+                <a href="/Admin/Reports">REPORT</a>
+                @* TODO: Add the employees page (ADM6)*@
+                <a asp-page="/Admin/Employees/Index">EMPLOYEES</a> @* AI helped modify my link to connect it to my page for now.*@
+            }
+            else
+            {
+                <a href="/">HOME</a>
+                <a href="#">AVAILABILITY</a>
+                <a href="#">RESERVATIONS</a>
+                <a href="#">CONTACT</a>
+            }
+
         </div>
 
         <div class="login">
-            <button>Log In</button>
+            @* If the user is on the admin page, show the log out button *@
+            @if (Context.Request.Path.StartsWithSegments("/Admin"))
+            {
+                <a href="/"><button>Log Out</button></a>
+            }
+            @* Otherwise, show the log in button *@
+            else
+            {
+                @* TODO: Add the log in page. For now redirecting to the admin page *@
+                <a href="/Admin"><button>Log In</button></a>
+            }
         </div>
     </header>
 
