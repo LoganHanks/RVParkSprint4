@@ -44,7 +44,7 @@ namespace RVPark_Team2.Pages.Admin.Sites
             var newSite = new Site
             {
                 SiteNumber = "New",
-                SiteTypeId = 0
+                SiteTypeId = 1
             };
 
             _context.Sites.Add(newSite);

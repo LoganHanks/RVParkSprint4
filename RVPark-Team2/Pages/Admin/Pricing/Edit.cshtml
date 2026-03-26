@@ -1,0 +1,121 @@
+@page "{id:int}"
+@model RVPark_Team2.Pages.Admin.Pricing.EditModel
+@{
+    ViewData["Title"] = "Edit Site Type";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/admin-pricing.css" />
+}
+
+<div class="edit-container">
+
+    <h1>Edit Site Type</h1>
+
+    <div class="return-container">
+        <a asp-page="Index" class="return-btn">Return to Site Types</a>
+    </div>
+
+    <form method="post" asp-page-handler="Save" class="edit-form">
+
+        <input type="hidden" asp-for="SiteType.Id" />
+        <div class="form-group">
+            <label asp-for="SiteType.Name">Name</label>
+            <input asp-for="SiteType.Name" />
+            <span asp-validation-for="SiteType.Name" class="field-validation"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SiteType.Description">Description</label>
+            <textarea asp-for="SiteType.Description"></textarea>
+            <span asp-validation-for="SiteType.Description" class="field-validation"></span>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="save-btn">Save Changes</button>
+        </div>
+    </form>
+
+    <h2>Add Price Entry</h2>
+    <form method="post" asp-page-handler="AddPrice" class="edit-form">
+        <div class="form-group">
+            <label asp-for="NewPrice.StartDate">Start Date</label>
+            <input asp-for="NewPrice.StartDate" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        </div>
+        <div class="form-group">
+            <label asp-for="NewPrice.EndDate">End Date (blank = No End Date)</label>
+            <input asp-for="NewPrice.EndDate" type="date" />
+        </div>
+        <div class="form-group">
+            <label asp-for="NewPrice.Price">Price</label>
+            <input asp-for="NewPrice.Price" type="number" step="0.01" min="0.01" />
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="save-btn">Add Price</button>
+        </div>
+    </form>
+
+    @if (Model.Prices != null && Model.Prices.Any())
+    {
+        <div class="prices-section">
+            <h2>Price Entries</h2>
+            <div class="price-table">
+                <div class="table-header">
+                    <span>Start Date</span>
+                    <span>End Date</span>
+                    <span>Price</span>
+                    <span>Actions</span>
+                </div>
+
+                @foreach (var price in Model.Prices)
+                {
+                    <div class="table-row" data-id="@price.Id">
+                        <span class="editable-cell">
+                            <span class="cell-display">@price.StartDate.ToString("MM/dd/yyyy") <button type="button" class="save-btn edit-cell-btn">Edit</button></span>
+                            <form method="post" asp-page-handler="EditStartDate" asp-route-priceId="@price.Id" class="cell-edit-form" style="display:none;">
+                                <input type="date" name="newStartDate" value="@price.StartDate.ToString("yyyy-MM-dd")" />
+                                <button type="submit" class="save-btn cell-save">Save</button>
+                                <button type="button" class="cancel-btn cell-cancel">Cancel</button>
+                            </form>
+                        </span>
+                        <span class="editable-cell">
+                            <span class="cell-display">
+                                @if (price.EndDate == null)
+                                {
+                                    <text>No End Date</text>
+                                }
+                                else
+                                {
+                                    @price.EndDate.Value.ToString("MM/dd/yyyy")
+                                }
+                                <button type="button" class="save-btn edit-cell-btn">Edit</button>
+                            </span>
+                            <form method="post" asp-page-handler="EditEndDate" asp-route-priceId="@price.Id" class="cell-edit-form" style="display:none;">
+                                <input type="date" name="newEndDate" value="@(price.EndDate?.ToString("yyyy-MM-dd") ?? "")" />
+                                <button type="submit" class="save-btn cell-save">Save</button>
+                                <button type="button" class="cancel-btn cell-cancel">Cancel</button>
+                            </form>
+                        </span>
+                        <span class="editable-cell">
+                            <span class="cell-display">$@price.Price.ToString("F2") <button type="button" class="save-btn edit-cell-btn">Edit</button></span>
+                            <form method="post" asp-page-handler="EditPrice" asp-route-priceId="@price.Id" class="cell-edit-form" style="display:none;">
+                                <input type="number" name="newPrice" step="0.01" min="0.01" value="@price.Price.ToString("F2")" />
+                                <button type="submit" class="save-btn cell-save">Save</button>
+                                <button type="button" class="cancel-btn cell-cancel">Cancel</button>
+                            </form>
+                        </span>
+                        <span>
+                            <form method="post" asp-page-handler="DeletePrice" asp-route-priceId="@price.Id" style="display:inline;">
+                                <button type="submit" class="btn btn-danger delete-btn">Delete</button>
+                            </form>
+                        </span>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/admin-pricing-edit.js"></script>
+}
