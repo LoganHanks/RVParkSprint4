@@ -87,6 +87,7 @@ namespace RVPark_Team2.Data
         {
         }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Fee> Fees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
