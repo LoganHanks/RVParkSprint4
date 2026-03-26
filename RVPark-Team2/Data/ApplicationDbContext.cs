@@ -88,9 +88,20 @@ namespace RVPark_Team2.Data
         }
         public DbSet<Reservation> Reservations { get; set; }
 
+        public DbSet<Site> Sites { get; set; }
+
+        public DbSet<SitePhoto> SitePhotos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // in order to make sure that when a site is deleted, all associated photos are also deleted
+            modelBuilder.Entity<SitePhoto>()
+                .HasOne(sp => sp.PSite)
+                .WithMany(s => s.Photos)
+                .HasForeignKey(sp => sp.SiteId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Reservation>().HasData(
                 new Reservation
@@ -104,7 +115,36 @@ namespace RVPark_Team2.Data
                     IsCancelled = false
                 }
             );
+
+            // Example Site
+            modelBuilder.Entity<Site>().HasData(
+                new Site
+                {
+                    Id = 1,
+                    SiteNumber = "A1",
+                    SiteTypeId = 1
+                }
+            );
+
+            // Example SitePhoto
+            modelBuilder.Entity<SitePhoto>().HasData(
+                new SitePhoto
+                {
+                    Id = 1,
+                    SiteId = 1, 
+                    PhotoUrl = "/images/site1MapPhoto.png"
+                },
+                new SitePhoto
+                {
+                    Id = 2,
+                    SiteId = 1,
+                    PhotoUrl = "/images/site1Photo1.jpg"
+                }
+            );
+
         }
+
+
     }
 
 }

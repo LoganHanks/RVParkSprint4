@@ -65,6 +65,86 @@ namespace RVPark_Team2.Migrations
                             TotalPrice = 150m
                         });
                 });
+
+            modelBuilder.Entity("RVPark_Team2.Models.Site", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("SiteNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SiteTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sites");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            SiteNumber = "A1",
+                            SiteTypeId = 1
+                        });
+                });
+
+            modelBuilder.Entity("RVPark_Team2.Models.SitePhoto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("PhotoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SiteId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SiteId");
+
+                    b.ToTable("SitePhotos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PhotoUrl = "/images/site1MapPhoto.png",
+                            SiteId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            PhotoUrl = "/images/site1Photo1.jpg",
+                            SiteId = 1
+                        });
+                });
+
+            modelBuilder.Entity("RVPark_Team2.Models.SitePhoto", b =>
+                {
+                    b.HasOne("RVPark_Team2.Models.Site", "PSite")
+                        .WithMany("Photos")
+                        .HasForeignKey("SiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PSite");
+                });
+
+            modelBuilder.Entity("RVPark_Team2.Models.Site", b =>
+                {
+                    b.Navigation("Photos");
+                });
 #pragma warning restore 612, 618
         }
     }
