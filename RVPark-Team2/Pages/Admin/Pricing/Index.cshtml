@@ -1,0 +1,67 @@
+@page
+@model RVPark_Team2.Pages.Admin.Pricing.IndexModel
+@{
+    ViewData["Title"] = "Manage Site Types & Pricing";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/admin-pricing.css" />
+}
+
+<div class="pricing-container">
+
+    <h1>Manage Site Types & Pricing</h1>
+
+    <a asp-page="Create" class="add-site-type-btn">Add Site Type</a>
+
+    @if (Model.SiteTypes != null && Model.SiteTypes.Any())
+    {
+        <div class="pricing-table">
+            <div class="table-header">
+                <span>ID</span>
+                <span>Name</span>
+                <span>Description</span>
+                <span>Current Price</span>
+                <span>Actions</span>
+            </div>
+
+            @foreach (var st in Model.SiteTypes)
+            {
+                var currentPrice = st.Prices.FirstOrDefault(p => p.EndDate == null);
+
+                <div class="table-row">
+                    <span>@st.Id</span>
+                    <span>@st.Name</span>
+                    <span>@st.Description</span>
+                    <span>
+                        @if (currentPrice != null)
+                        {
+                            <text>$@currentPrice.Price.ToString("F2")</text>
+                        }
+                        else
+                        {
+                            <text>Not Set</text>
+                        }
+                    </span>
+                    <span>
+                        <a asp-page="Edit" asp-route-id="@st.Id">Edit</a>
+
+                        @{
+                            var siteCount = Model.SiteCounts.GetValueOrDefault(st.Id, 0);
+                        }
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@st.Id" style="display:inline;">
+                            <button type="submit" class="btn btn-danger"
+                                    data-site-count="@siteCount"
+                                    onclick="if(this.dataset.siteCount > 0){ alert('Cannot delete this site type. There are ' + this.dataset.siteCount + ' site(s) still assigned to it.'); return false; } return confirm('Are you sure you want to delete this site type?');">Delete</button>
+                        </form>
+                    </span>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p>No site types found.</p>
+    }
+
+</div>
