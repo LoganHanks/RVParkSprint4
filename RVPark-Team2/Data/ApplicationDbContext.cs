@@ -1,4 +1,4 @@
-﻿// This class helps us set up the database
+// This class helps us set up the database
 /*
 ===========================================================
 DATABASE SETUP INSTRUCTIONS (FOR TEAM MEMBERS)
@@ -87,13 +87,16 @@ namespace RVPark_Team2.Data
         {
         }
         public DbSet<Reservation> Reservations { get; set; }
-
-        public DbSet<Employee> Employees { get; set; } //AI helped with this, and I based it off of the reservations one.
         public DbSet<Fee> Fees { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         public DbSet<Site> Sites { get; set; }
 
         public DbSet<SitePhoto> SitePhotos { get; set; }
+
+        public DbSet<SiteType> SiteTypes { get; set; }
+
+        public DbSet<SiteTypePrice> SiteTypePrices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -104,6 +107,24 @@ namespace RVPark_Team2.Data
                 .HasOne(sp => sp.PSite)
                 .WithMany(s => s.Photos)
                 .HasForeignKey(sp => sp.SiteId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // site belongs to a site type
+            modelBuilder.Entity<Site>()
+                .HasOne(s => s.SiteType)
+                .WithMany(st => st.Sites)
+                .HasForeignKey(s => s.SiteTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // maps SiteTypePrice model to the existing SiteTypePricings table
+            modelBuilder.Entity<SiteTypePrice>()
+                .ToTable("SiteTypePricings");
+
+            // when a site type is deleted, all associated prices are also deleted
+            modelBuilder.Entity<SiteTypePrice>()
+                .HasOne(sp => sp.SiteType)
+                .WithMany(st => st.Prices)
+                .HasForeignKey(sp => sp.SiteTypeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Reservation>().HasData(
@@ -134,7 +155,7 @@ namespace RVPark_Team2.Data
                 new SitePhoto
                 {
                     Id = 1,
-                    SiteId = 1, 
+                    SiteId = 1,
                     PhotoUrl = "/images/site1MapPhoto.png"
                 },
                 new SitePhoto
@@ -142,6 +163,28 @@ namespace RVPark_Team2.Data
                     Id = 2,
                     SiteId = 1,
                     PhotoUrl = "/images/site1Photo1.jpg"
+                }
+            );
+
+            // Example SiteType
+            modelBuilder.Entity<SiteType>().HasData(
+                new SiteType
+                {
+                    Id = 1,
+                    Name = "Full Hookup",
+                    Description = "Site with all utility hookups"
+                }
+            );
+
+            // Example SiteTypePrice
+            modelBuilder.Entity<SiteTypePrice>().HasData(
+                new SiteTypePrice
+                {
+                    Id = 1,
+                    SiteTypeId = 1,
+                    StartDate = new DateTime(2026, 1, 1),
+                    EndDate = null,
+                    Price = 50.00m
                 }
             );
 
