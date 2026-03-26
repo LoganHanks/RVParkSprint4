@@ -1,0 +1,41 @@
+@page
+@model RVPark_Team2.Pages.Admin.Pricing.CreateModel
+@{
+    ViewData["Title"] = "Add Site Type";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/admin-pricing.css" />
+}
+
+<div class="edit-container">
+
+    <h1>Add Site Type</h1>
+
+    <div class="return-container">
+        <a asp-page="Index" class="return-btn">Return to Site Types</a>
+    </div>
+
+    <form method="post" class="edit-form">
+        <div class="form-group">
+            <label asp-for="SiteType.Name">Name</label>
+            <input asp-for="SiteType.Name" />
+            <span asp-validation-for="SiteType.Name" class="field-validation"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SiteType.Description">Description</label>
+            <textarea asp-for="SiteType.Description"></textarea>
+            <span asp-validation-for="SiteType.Description" class="field-validation"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="InitialPrice">Initial Price</label>
+            <input asp-for="InitialPrice" type="number" step="0.01" min="0.01" />
+            <span asp-validation-for="InitialPrice" class="field-validation"></span>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="save-btn">Create Site Type</button>
+        </div>
+    </form>
+
+</div>
