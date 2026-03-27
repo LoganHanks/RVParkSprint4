@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -12,14 +12,14 @@ namespace RVPark_Team2.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.InsertData(
-                table: "Sites",
-                columns: new[] { "Id", "SiteNumber", "SiteTypeId" },
-                values: new object[,]
-                {
-                    { 2, "B1", 1 },
-                    { 3, "C1", 1 }
-                });
+            migrationBuilder.Sql(@"
+                SET IDENTITY_INSERT [Sites] ON;
+                IF NOT EXISTS (SELECT 1 FROM [Sites] WHERE [Id] = 2)
+                    INSERT INTO [Sites] ([Id], [SiteNumber], [SiteTypeId]) VALUES (2, N'B1', 1);
+                IF NOT EXISTS (SELECT 1 FROM [Sites] WHERE [Id] = 3)
+                    INSERT INTO [Sites] ([Id], [SiteNumber], [SiteTypeId]) VALUES (3, N'C1', 1);
+                SET IDENTITY_INSERT [Sites] OFF;
+            ");
         }
 
         /// <inheritdoc />
