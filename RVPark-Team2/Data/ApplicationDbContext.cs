@@ -127,17 +127,57 @@ namespace RVPark_Team2.Data
                 .HasForeignKey(sp => sp.SiteTypeId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // Example Reservations (multiple)
             modelBuilder.Entity<Reservation>().HasData(
                 new Reservation
                 {
                     Id = 1,
-                    CustomerName = "Test User",
-                    CustomerEmail = "testuser@email.com",
+                    CustomerName = "John Doe",
                     SiteId = 1,
                     StartDate = new DateTime(2026, 1, 1),
                     EndDate = new DateTime(2026, 1, 4),
                     TotalPrice = 150,
                     IsCancelled = false
+                },
+                new Reservation
+                {
+                    Id = 2,
+                    CustomerName = "Jane Smith",
+                    SiteId = 2,
+                    StartDate = new DateTime(2026, 1, 5),
+                    EndDate = new DateTime(2026, 1, 8),
+                    TotalPrice = 150,
+                    IsCancelled = false
+                },
+                new Reservation
+                {
+                    Id = 3,
+                    CustomerName = "Mike Johnson",
+                    SiteId = 1,
+                    StartDate = new DateTime(2026, 1, 10),
+                    EndDate = new DateTime(2026, 1, 12),
+                    TotalPrice = 100,
+                    IsCancelled = false
+                },
+                new Reservation
+                {
+                    Id = 4,
+                    CustomerName = "Emily Davis",
+                    SiteId = 3,
+                    StartDate = new DateTime(2026, 1, 3),
+                    EndDate = new DateTime(2026, 1, 6),
+                    TotalPrice = 150,
+                    IsCancelled = false
+                },
+                new Reservation
+                {
+                    Id = 5,
+                    CustomerName = "Chris Brown",
+                    SiteId = 2,
+                    StartDate = new DateTime(2026, 1, 7),
+                    EndDate = new DateTime(2026, 1, 9),
+                    TotalPrice = 100,
+                    IsCancelled = true
                 }
             );
 
