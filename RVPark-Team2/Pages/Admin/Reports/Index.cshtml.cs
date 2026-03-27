@@ -31,13 +31,12 @@ namespace RVPark_Team2.Pages.Admin.Reports
                 return;
 
             HasSearched = true;
-            var rangeEnd = EndDate.Value;
+            var rangeStart = StartDate.Value.Date;
+            var rangeEnd = EndDate.Value.Date;
 
             var rows = (from r in _context.Reservations
                         join s in _context.Sites on r.SiteId equals s.Id
                         where !r.IsCancelled
-                              && r.EndDate >= StartDate.Value
-                              && r.StartDate <= EndDate.Value
                         select new ReportRow
                         {
                             CustomerName = r.CustomerName,
@@ -45,14 +44,25 @@ namespace RVPark_Team2.Pages.Admin.Reports
                             SiteNumber = s.SiteNumber,
                             StartDate = r.StartDate,
                             EndDate = r.EndDate,
-                            Status = r.EndDate <= rangeEnd ? "Completed"
-                                   : r.StartDate <= rangeEnd ? "InProgress"
-                                   : "Upcoming"
+                            Status = r.EndDate < rangeStart ? "Completed"
+                                   : r.StartDate > rangeEnd ? "Upcoming"
+                                   : "InProgress"
                         }).ToList();
 
-            Completed = rows.Where(r => r.Status == "Completed").OrderBy(r => r.StartDate).ToList();
-            InProgress = rows.Where(r => r.Status == "InProgress").OrderBy(r => r.StartDate).ToList();
-            Upcoming = rows.Where(r => r.Status == "Upcoming").OrderBy(r => r.StartDate).ToList();
+            Completed = rows
+                .Where(r => r.Status == "Completed")
+                .OrderBy(r => r.StartDate)
+                .ToList();
+
+            InProgress = rows
+                .Where(r => r.Status == "InProgress")
+                .OrderBy(r => r.StartDate)
+                .ToList();
+
+            Upcoming = rows
+                .Where(r => r.Status == "Upcoming")
+                .OrderBy(r => r.StartDate)
+                .ToList();
         }
 
         public class ReportRow
