@@ -26,7 +26,7 @@
 		</div>
 		<div class="form-group">
 			<label asp-for="Site.SiteTypeId">Site Type ID</label>
-			<input asp-for="Site.SiteTypeId" />
+			<select asp-for="Site.SiteTypeId" asp-items="Model.SiteTypes"></select>
 			<span asp-validation-for="Site.SiteTypeId" class="field-validation"></span>
 		</div>
 		
