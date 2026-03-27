@@ -20,7 +20,7 @@ namespace RVPark_Team2.Pages.Admin.Employees
         }
 
         [BindProperty]
-        public CreateEmployeeClass EmployeeVM { get; set; } = default!;
+        public Employee Employee { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -31,12 +31,12 @@ namespace RVPark_Team2.Pages.Admin.Employees
 
             var employee = new Employee
             {
-                FirstName = EmployeeVM.FirstName,
-                LastName = EmployeeVM.LastName,
-                Email = EmployeeVM.Email,
-                AccessLevel = EmployeeVM.AccessLevel,
-                IsLocked = EmployeeVM.IsLocked,
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(EmployeeVM.Password)
+                FirstName = Employee.FirstName,
+                LastName = Employee.LastName,
+                Email = Employee.Email,
+                AccessLevel = Employee.AccessLevel,
+                IsLocked = Employee.IsLocked,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(Employee.PasswordHash)
             };
 
             _context.Employees.Add(employee);
