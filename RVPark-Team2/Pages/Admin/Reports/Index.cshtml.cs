@@ -31,7 +31,7 @@ namespace RVPark_Team2.Pages.Admin.Reports
                 return;
 
             HasSearched = true;
-            var today = DateTime.Today;
+            var rangeEnd = EndDate.Value;
 
             var rows = (from r in _context.Reservations
                         join s in _context.Sites on r.SiteId equals s.Id
@@ -45,8 +45,8 @@ namespace RVPark_Team2.Pages.Admin.Reports
                             SiteNumber = s.SiteNumber,
                             StartDate = r.StartDate,
                             EndDate = r.EndDate,
-                            Status = r.EndDate < today ? "Completed"
-                                   : r.StartDate <= today ? "InProgress"
+                            Status = r.EndDate <= rangeEnd ? "Completed"
+                                   : r.StartDate <= rangeEnd ? "InProgress"
                                    : "Upcoming"
                         }).ToList();
 
