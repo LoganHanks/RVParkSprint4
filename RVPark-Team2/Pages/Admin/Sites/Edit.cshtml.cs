@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using RVPark_Team2.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RVPark_Team2.Data;
+using RVPark_Team2.Models;
 
 namespace RVPark_Team2.Pages.Admin.Sites
 {
@@ -32,6 +33,8 @@ namespace RVPark_Team2.Pages.Admin.Sites
 
             Site = site;
 
+            SiteTypes = new SelectList(_context.SiteTypes, "Id", "Name");
+
             var dbPhotos = _context.SitePhotos.AsQueryable();
 
             dbPhotos = dbPhotos.Where(p => p.SiteId == id);
@@ -40,6 +43,8 @@ namespace RVPark_Team2.Pages.Admin.Sites
 
             return Page();
         }
+
+        public SelectList SiteTypes { get; set; }
 
         public IActionResult OnPostSave(int id)
         {
