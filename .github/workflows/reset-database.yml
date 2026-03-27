@@ -1,0 +1,42 @@
+name: Reset Live SQL Database and Reapply Migrations
+
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'WARNING: This will DELETE all data in Azure SQL and recreate tables from scratch. Type "continue" to confirm.'
+        required: true
+
+env:
+  DOTNET_VERSION: '10'
+
+permissions:
+  contents: read
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify confirmation
+        if: ${{ github.event.inputs.confirm != 'continue' }}
+        run: |
+          echo "Aborting..."
+          exit 1
+
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install EF Core tools
+        run: dotnet tool install --global dotnet-ef
+
+      - name: Drop database
+        run: dotnet ef database drop --project RVPark-Team2 --connection "${{ secrets.AZURE_SQL_CONNECTION_STRING }}" --force
+
+      - name: Re-apply all migrations
+        run: dotnet ef database update --project RVPark-Team2 --connection "${{ secrets.AZURE_SQL_CONNECTION_STRING }}"
