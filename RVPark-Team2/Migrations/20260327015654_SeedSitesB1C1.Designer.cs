@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RVPark_Team2.Data;
 
@@ -11,9 +12,11 @@ using RVPark_Team2.Data;
 namespace RVPark_Team2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260327015654_SeedSitesB1C1")]
+    partial class SeedSitesB1C1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,7 +121,7 @@ namespace RVPark_Team2.Migrations
                         new
                         {
                             Id = 1,
-                            CustomerEmail = "test@example.com",
+                            CustomerEmail = "",
                             CustomerName = "John Doe",
                             EndDate = new DateTime(2026, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCancelled = false,
@@ -129,7 +132,7 @@ namespace RVPark_Team2.Migrations
                         new
                         {
                             Id = 2,
-                            CustomerEmail = "test@example.com",
+                            CustomerEmail = "",
                             CustomerName = "Jane Smith",
                             EndDate = new DateTime(2026, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCancelled = false,
@@ -140,7 +143,7 @@ namespace RVPark_Team2.Migrations
                         new
                         {
                             Id = 3,
-                            CustomerEmail = "test@example.com",
+                            CustomerEmail = "",
                             CustomerName = "Mike Johnson",
                             EndDate = new DateTime(2026, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCancelled = false,
@@ -151,7 +154,7 @@ namespace RVPark_Team2.Migrations
                         new
                         {
                             Id = 4,
-                            CustomerEmail = "test@example.com",
+                            CustomerEmail = "",
                             CustomerName = "Emily Davis",
                             EndDate = new DateTime(2026, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCancelled = false,
@@ -162,7 +165,7 @@ namespace RVPark_Team2.Migrations
                         new
                         {
                             Id = 5,
-                            CustomerEmail = "test@example.com",
+                            CustomerEmail = "",
                             CustomerName = "Chris Brown",
                             EndDate = new DateTime(2026, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCancelled = true,

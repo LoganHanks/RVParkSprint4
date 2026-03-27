@@ -35,13 +35,14 @@ namespace RVPark_Team2.Pages.Admin.Reports
             var rangeEnd = EndDate.Value.Date;
 
             var rows = (from r in _context.Reservations
-                        join s in _context.Sites on r.SiteId equals s.Id
+                        join s in _context.Sites on r.SiteId equals s.Id into sites
+                        from s in sites.DefaultIfEmpty()
                         where !r.IsCancelled
                         select new ReportRow
                         {
                             CustomerName = r.CustomerName,
                             CustomerEmail = r.CustomerEmail,
-                            SiteNumber = s.SiteNumber,
+                            SiteNumber = s != null ? s.SiteNumber : "N/A",
                             StartDate = r.StartDate,
                             EndDate = r.EndDate,
                             Status = r.EndDate < rangeStart ? "Completed"

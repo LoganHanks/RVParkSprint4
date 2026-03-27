@@ -133,6 +133,7 @@ namespace RVPark_Team2.Data
                 {
                     Id = 1,
                     CustomerName = "John Doe",
+                    CustomerEmail = "test@example.com",
                     SiteId = 1,
                     StartDate = new DateTime(2026, 1, 1),
                     EndDate = new DateTime(2026, 1, 4),
@@ -143,6 +144,7 @@ namespace RVPark_Team2.Data
                 {
                     Id = 2,
                     CustomerName = "Jane Smith",
+                    CustomerEmail = "test@example.com",
                     SiteId = 2,
                     StartDate = new DateTime(2026, 1, 5),
                     EndDate = new DateTime(2026, 1, 8),
@@ -153,6 +155,7 @@ namespace RVPark_Team2.Data
                 {
                     Id = 3,
                     CustomerName = "Mike Johnson",
+                    CustomerEmail = "test@example.com",
                     SiteId = 1,
                     StartDate = new DateTime(2026, 1, 10),
                     EndDate = new DateTime(2026, 1, 12),
@@ -163,6 +166,7 @@ namespace RVPark_Team2.Data
                 {
                     Id = 4,
                     CustomerName = "Emily Davis",
+                    CustomerEmail = "test@example.com",
                     SiteId = 3,
                     StartDate = new DateTime(2026, 1, 3),
                     EndDate = new DateTime(2026, 1, 6),
@@ -173,6 +177,7 @@ namespace RVPark_Team2.Data
                 {
                     Id = 5,
                     CustomerName = "Chris Brown",
+                    CustomerEmail = "test@example.com",
                     SiteId = 2,
                     StartDate = new DateTime(2026, 1, 7),
                     EndDate = new DateTime(2026, 1, 9),
@@ -187,6 +192,18 @@ namespace RVPark_Team2.Data
                 {
                     Id = 1,
                     SiteNumber = "A1",
+                    SiteTypeId = 1
+                },
+                new Site
+                {
+                    Id = 2,
+                    SiteNumber = "B1",
+                    SiteTypeId = 1
+                },
+                new Site
+                {
+                    Id = 3,
+                    SiteNumber = "C1",
                     SiteTypeId = 1
                 }
             );
