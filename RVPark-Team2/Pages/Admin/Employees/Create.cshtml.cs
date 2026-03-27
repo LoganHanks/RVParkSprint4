@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using RVPark_Team2.Data;
 using RVPark_Team2.Models;
 
@@ -25,9 +20,8 @@ namespace RVPark_Team2.Pages.Admin.Employees
         }
 
         [BindProperty]
-        public Employee Employee { get; set; } = default!;
+        public CreateEmployeeClass EmployeeVM { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -35,7 +29,17 @@ namespace RVPark_Team2.Pages.Admin.Employees
                 return Page();
             }
 
-            _context.Employees.Add(Employee);
+            var employee = new Employee
+            {
+                FirstName = EmployeeVM.FirstName,
+                LastName = EmployeeVM.LastName,
+                Email = EmployeeVM.Email,
+                AccessLevel = EmployeeVM.AccessLevel,
+                IsLocked = EmployeeVM.IsLocked,
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword(EmployeeVM.Password)
+            };
+
+            _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
