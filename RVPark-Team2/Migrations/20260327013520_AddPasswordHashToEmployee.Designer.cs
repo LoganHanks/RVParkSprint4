@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RVPark_Team2.Data;
 
@@ -11,9 +12,11 @@ using RVPark_Team2.Data;
 namespace RVPark_Team2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260327013520_AddPasswordHashToEmployee")]
+    partial class AddPasswordHashToEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,18 +59,6 @@ namespace RVPark_Team2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessLevel = "Admin",
-                            Email = "admin@admin.com",
-                            FirstName = "Admin",
-                            IsLocked = false,
-                            LastName = "User",
-                            PasswordHash = "$2a$11$iLPVgQQZV5f3NI1gSGTKwuHrvT4iHnPVavbFn6f5AvGLj9eZBwrQi"
-                        });
                 });
 
             modelBuilder.Entity("Fee", b =>

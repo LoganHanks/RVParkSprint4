@@ -229,9 +229,18 @@ namespace RVPark_Team2.Data
                 }
             );
 
+            modelBuilder.Entity<Employee>().HasData(
+            new Employee
+                {
+                    Id = 1, // Use a fixed ID that doesn’t conflict with other seeded IDs
+                    FirstName = "Admin",
+                    LastName = "User",
+                    Email = "admin@admin.com",
+                    PasswordHash = "$2a$11$iLPVgQQZV5f3NI1gSGTKwuHrvT4iHnPVavbFn6f5AvGLj9eZBwrQi",
+                    AccessLevel = "Admin",
+                    IsLocked = false
+                }
+            );
         }
-
-
     }
-
 }

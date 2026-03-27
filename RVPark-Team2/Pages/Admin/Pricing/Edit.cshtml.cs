@@ -5,7 +5,7 @@ using RVPark_Team2.Data;
 
 namespace RVPark_Team2.Pages.Admin.Pricing
 {
-    public class EditModel : PageModel
+    public class EditModel : AdminPageModel
     {
         private readonly ApplicationDbContext _context;
 
@@ -64,7 +64,8 @@ namespace RVPark_Team2.Pages.Admin.Pricing
             siteType.Description = SiteType.Description ?? "";
             _context.SaveChanges();
 
-            return RedirectToPage(new { id });
+            TempData["SuccessMessage"] = "Site saved successfully!";
+            return RedirectToPage("Index");
         }
 
         public IActionResult OnPostAddPrice(int id)
