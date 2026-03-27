@@ -2,48 +2,37 @@
 @model RVPark_Team2.Pages.Admin.Employees.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Employee Details";
 }
 
-<h1>Details</h1>
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/admin-employees.css" />
+}
 
-<div>
-    <h4>Employee</h4>
+<div class="edit-container">
+    <h1>Employee Details</h1>
+
+    <div class="return-container">
+        <a class="return-btn" asp-page="Index">Back to List</a>
+        <a class="add-site-type-btn" asp-page="Edit" asp-route-id="@Model.Employee.Id">Edit</a>
+    </div>
+
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.AccessLevel)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.AccessLevel)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.IsLocked)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.IsLocked)
-        </dd>
+
+    <dl class="details-list">
+        <dt>@Html.DisplayNameFor(model => model.Employee.FirstName)</dt>
+        <dd>@Html.DisplayFor(model => model.Employee.FirstName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Employee.LastName)</dt>
+        <dd>@Html.DisplayFor(model => model.Employee.LastName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Employee.Email)</dt>
+        <dd>@Html.DisplayFor(model => model.Employee.Email)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Employee.AccessLevel)</dt>
+        <dd>@Html.DisplayFor(model => model.Employee.AccessLevel)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.Employee.IsLocked)</dt>
+        <dd>@Html.DisplayFor(model => model.Employee.IsLocked)</dd>
     </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Employee.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
 </div>
