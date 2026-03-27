@@ -6,7 +6,7 @@ using RVPark_Team2.Data;
 
 namespace RVPark_Team2.Pages.Admin.Pricing
 {
-    public class IndexModel : PageModel
+    public class IndexModel : AdminPageModel
     {
         private readonly ApplicationDbContext _context;
 

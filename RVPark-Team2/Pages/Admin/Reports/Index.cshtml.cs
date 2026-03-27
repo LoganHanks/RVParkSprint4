@@ -5,7 +5,7 @@ using RVPark_Team2.Models;
 
 namespace RVPark_Team2.Pages.Admin.Reports
 {
-    public class IndexModel : PageModel
+    public class IndexModel : AdminPageModel
     {
         private readonly ApplicationDbContext _context;
 

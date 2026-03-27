@@ -9,7 +9,7 @@ using RVPark_Team2.Data;
 
 namespace RVPark_Team2.Pages.Admin.Fees
 {
-    public class IndexModel : PageModel
+    public class IndexModel : AdminPageModel
     {
         private readonly RVPark_Team2.Data.ApplicationDbContext _context;
 

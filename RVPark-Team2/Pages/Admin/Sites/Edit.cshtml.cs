@@ -5,7 +5,7 @@ using RVPark_Team2.Data;
 
 namespace RVPark_Team2.Pages.Admin.Sites
 {
-    public class EditModel : PageModel
+    public class EditModel : AdminPageModel
     {
         
 
@@ -59,11 +59,10 @@ namespace RVPark_Team2.Pages.Admin.Sites
             site.SiteNumber = Site.SiteNumber;
             site.SiteTypeId = Site.SiteTypeId;
 
-            
-
             _context.SaveChanges();
 
-            return RedirectToPage(new { id = Site.Id });
+            TempData["SuccessMessage"] = "Site saved successfully!";
+            return RedirectToPage("Index");
         }
 
         [BindProperty]
