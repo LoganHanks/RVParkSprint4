@@ -186,29 +186,90 @@ namespace RVPark_Team2.Data
                 }
             );
 
-            // Example Site
-            modelBuilder.Entity<Site>().HasData(
-                new Site
-                {
-                    Id = 1,
-                    SiteNumber = "A1",
-                    SiteTypeId = 1
-                },
-                new Site
-                {
-                    Id = 2,
-                    SiteNumber = "B1",
-                    SiteTypeId = 1
-                },
-                new Site
-                {
-                    Id = 3,
-                    SiteNumber = "C1",
-                    SiteTypeId = 1
-                }
+            // SiteType
+            modelBuilder.Entity<SiteType>().HasData(
+                new SiteType { Id = 1, Name = "Back-In", Description = "Standard back-in RV site" },
+                new SiteType { Id = 2, Name = "Pull-Through", Description = "Standard pull-through RV site" },
+                new SiteType { Id = 3, Name = "Dry", Description = "Dry camping site with no hook-ups" },
+                new SiteType { Id = 4, Name = "Tent", Description = "Tent-only camping site" }
             );
 
-            // Example SitePhoto
+            // SiteTypePrice
+            modelBuilder.Entity<SiteTypePrice>().HasData(
+                new SiteTypePrice { Id = 1, SiteTypeId = 1, StartDate = new DateTime(2026, 1, 1), EndDate = null, Price = 35.00m },
+                new SiteTypePrice { Id = 2, SiteTypeId = 2, StartDate = new DateTime(2026, 1, 1), EndDate = null, Price = 35.00m },
+                new SiteTypePrice { Id = 3, SiteTypeId = 3, StartDate = new DateTime(2026, 1, 1), EndDate = null, Price = 25.00m },
+                new SiteTypePrice { Id = 4, SiteTypeId = 4, StartDate = new DateTime(2026, 1, 1), EndDate = null, Price = 25.00m }
+            );
+
+            // Site — Back-In (33 sites)
+            modelBuilder.Entity<Site>().HasData(
+                new Site { Id = 1, SiteNumber = "1", SiteTypeId = 1 },
+                new Site { Id = 2, SiteNumber = "2", SiteTypeId = 1 },
+                new Site { Id = 3, SiteNumber = "3", SiteTypeId = 1 },
+                new Site { Id = 4, SiteNumber = "4", SiteTypeId = 1 },
+                new Site { Id = 5, SiteNumber = "5", SiteTypeId = 1 },
+                new Site { Id = 6, SiteNumber = "6", SiteTypeId = 1 },
+                new Site { Id = 7, SiteNumber = "7", SiteTypeId = 1 },
+                new Site { Id = 8, SiteNumber = "8", SiteTypeId = 1 },
+                new Site { Id = 9, SiteNumber = "9", SiteTypeId = 1 },
+                new Site { Id = 10, SiteNumber = "10", SiteTypeId = 1 },
+                new Site { Id = 11, SiteNumber = "11", SiteTypeId = 1 },
+                new Site { Id = 12, SiteNumber = "11B", SiteTypeId = 1 },
+                new Site { Id = 13, SiteNumber = "12", SiteTypeId = 1 },
+                new Site { Id = 14, SiteNumber = "12B", SiteTypeId = 1 },
+                new Site { Id = 15, SiteNumber = "13", SiteTypeId = 1 },
+                new Site { Id = 16, SiteNumber = "14", SiteTypeId = 1 },
+                new Site { Id = 17, SiteNumber = "15", SiteTypeId = 1 },
+                new Site { Id = 18, SiteNumber = "17", SiteTypeId = 1 },
+                new Site { Id = 19, SiteNumber = "18", SiteTypeId = 1 },
+                new Site { Id = 20, SiteNumber = "19", SiteTypeId = 1 },
+                new Site { Id = 21, SiteNumber = "20", SiteTypeId = 1 },
+                new Site { Id = 22, SiteNumber = "21", SiteTypeId = 1 },
+                new Site { Id = 23, SiteNumber = "22", SiteTypeId = 1 },
+                new Site { Id = 24, SiteNumber = "23", SiteTypeId = 1 },
+                new Site { Id = 25, SiteNumber = "24", SiteTypeId = 1 },
+                new Site { Id = 26, SiteNumber = "25", SiteTypeId = 1 },
+                new Site { Id = 27, SiteNumber = "26", SiteTypeId = 1 },
+                new Site { Id = 28, SiteNumber = "27", SiteTypeId = 1 },
+                new Site { Id = 29, SiteNumber = "28", SiteTypeId = 1 },
+                new Site { Id = 30, SiteNumber = "29", SiteTypeId = 1 },
+                new Site { Id = 31, SiteNumber = "30", SiteTypeId = 1 },
+                new Site { Id = 32, SiteNumber = "31", SiteTypeId = 1 },
+                new Site { Id = 33, SiteNumber = "C", SiteTypeId = 1 },
+
+                // Pull-Through (16 sites)
+                new Site { Id = 34, SiteNumber = "32", SiteTypeId = 2 },
+                new Site { Id = 35, SiteNumber = "33", SiteTypeId = 2 },
+                new Site { Id = 36, SiteNumber = "34", SiteTypeId = 2 },
+                new Site { Id = 37, SiteNumber = "35", SiteTypeId = 2 },
+                new Site { Id = 38, SiteNumber = "36", SiteTypeId = 2 },
+                new Site { Id = 39, SiteNumber = "37", SiteTypeId = 2 },
+                new Site { Id = 40, SiteNumber = "38", SiteTypeId = 2 },
+                new Site { Id = 41, SiteNumber = "39", SiteTypeId = 2 },
+                new Site { Id = 42, SiteNumber = "40", SiteTypeId = 2 },
+                new Site { Id = 43, SiteNumber = "41", SiteTypeId = 2 },
+                new Site { Id = 44, SiteNumber = "42", SiteTypeId = 2 },
+                new Site { Id = 45, SiteNumber = "43", SiteTypeId = 2 },
+                new Site { Id = 46, SiteNumber = "44", SiteTypeId = 2 },
+                new Site { Id = 47, SiteNumber = "45", SiteTypeId = 2 },
+                new Site { Id = 48, SiteNumber = "A", SiteTypeId = 2 },
+                new Site { Id = 49, SiteNumber = "B", SiteTypeId = 2 },
+
+                // Dry (7 sites)
+                new Site { Id = 50, SiteNumber = "D-1", SiteTypeId = 3 },
+                new Site { Id = 51, SiteNumber = "D-2", SiteTypeId = 3 },
+                new Site { Id = 52, SiteNumber = "D-3", SiteTypeId = 3 },
+                new Site { Id = 53, SiteNumber = "D-4", SiteTypeId = 3 },
+                new Site { Id = 54, SiteNumber = "D-5", SiteTypeId = 3 },
+                new Site { Id = 55, SiteNumber = "D-6", SiteTypeId = 3 },
+                new Site { Id = 56, SiteNumber = "D-7", SiteTypeId = 3 },
+
+                // Tent (1 site)
+                new Site { Id = 57, SiteNumber = "T-1", SiteTypeId = 4 }
+            );
+
+            // SitePhoto
             modelBuilder.Entity<SitePhoto>().HasData(
                 new SitePhoto
                 {
@@ -221,28 +282,6 @@ namespace RVPark_Team2.Data
                     Id = 2,
                     SiteId = 1,
                     PhotoUrl = "/images/site1Photo1.jpg"
-                }
-            );
-
-            // Example SiteType
-            modelBuilder.Entity<SiteType>().HasData(
-                new SiteType
-                {
-                    Id = 1,
-                    Name = "Full Hookup",
-                    Description = "Site with all utility hookups"
-                }
-            );
-
-            // Example SiteTypePrice
-            modelBuilder.Entity<SiteTypePrice>().HasData(
-                new SiteTypePrice
-                {
-                    Id = 1,
-                    SiteTypeId = 1,
-                    StartDate = new DateTime(2026, 1, 1),
-                    EndDate = null,
-                    Price = 50.00m
                 }
             );
 
