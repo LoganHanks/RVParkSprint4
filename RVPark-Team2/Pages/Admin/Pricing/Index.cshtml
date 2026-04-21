@@ -10,6 +10,14 @@
 
 <div class="pricing-container">
 
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="toast-success" id="successToast">
+            <span>@TempData["SuccessMessage"]</span>
+            <button type="button" class="toast-close" onclick="closeToast()">×</button>
+        </div>
+    }
+
     <h1>Manage Site Types & Pricing</h1>
 
     <a asp-page="Create" class="add-site-type-btn">Add Site Type</a>
@@ -63,5 +71,22 @@
     {
         <p>No site types found.</p>
     }
-
 </div>
+<script>
+    function closeToast() {
+        const toast = document.getElementById("successToast");
+        if (toast) {
+            toast.style.animation = "fadeOut 0.3s ease forwards";
+            setTimeout(() => toast.remove(), 300);
+        }
+    }
+
+    // Auto-dismiss after 3 seconds
+    setTimeout(() => {
+        const toast = document.getElementById("successToast");
+        if (toast) {
+            toast.style.animation = "fadeOut 0.3s ease forwards";
+            setTimeout(() => toast.remove(), 300);
+        }
+    }, 3000);
+</script>

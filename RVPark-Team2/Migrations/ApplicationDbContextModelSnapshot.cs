@@ -22,32 +22,7 @@ namespace RVPark_Team2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Fee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("FeeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ReservationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReservationId");
-
-                    b.ToTable("Fees");
-                });
-
-            modelBuilder.Entity("RVPark_Team2.Models.Employee", b =>
+            modelBuilder.Entity("Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,9 +49,50 @@ namespace RVPark_Team2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessLevel = "Admin",
+                            Email = "admin@admin.com",
+                            FirstName = "Admin",
+                            IsLocked = false,
+                            LastName = "User",
+                            PasswordHash = "$2a$11$iLPVgQQZV5f3NI1gSGTKwuHrvT4iHnPVavbFn6f5AvGLj9eZBwrQi"
+                        });
+                });
+
+            modelBuilder.Entity("Fee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("FeeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("Fees");
                 });
 
             modelBuilder.Entity("RVPark_Team2.Models.Reservation", b =>
@@ -131,8 +147,8 @@ namespace RVPark_Team2.Migrations
                         new
                         {
                             Id = 1,
-                            CustomerEmail = "testuser@email.com",
-                            CustomerName = "Test User",
+                            CustomerEmail = "test@example.com",
+                            CustomerName = "John Doe",
                             EndDate = new DateTime(2026, 1, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsCancelled = false,
                             NumberOfAdults = 0,
@@ -140,6 +156,50 @@ namespace RVPark_Team2.Migrations
                             SiteId = 1,
                             StartDate = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 150m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CustomerEmail = "test@example.com",
+                            CustomerName = "Jane Smith",
+                            EndDate = new DateTime(2026, 1, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsCancelled = false,
+                            SiteId = 2,
+                            StartDate = new DateTime(2026, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalPrice = 150m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CustomerEmail = "test@example.com",
+                            CustomerName = "Mike Johnson",
+                            EndDate = new DateTime(2026, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsCancelled = false,
+                            SiteId = 1,
+                            StartDate = new DateTime(2026, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalPrice = 100m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CustomerEmail = "test@example.com",
+                            CustomerName = "Emily Davis",
+                            EndDate = new DateTime(2026, 1, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsCancelled = false,
+                            SiteId = 3,
+                            StartDate = new DateTime(2026, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalPrice = 150m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CustomerEmail = "test@example.com",
+                            CustomerName = "Chris Brown",
+                            EndDate = new DateTime(2026, 1, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsCancelled = true,
+                            SiteId = 2,
+                            StartDate = new DateTime(2026, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TotalPrice = 100m
                         });
                 });
 
@@ -169,6 +229,18 @@ namespace RVPark_Team2.Migrations
                         {
                             Id = 1,
                             SiteNumber = "A1",
+                            SiteTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            SiteNumber = "B1",
+                            SiteTypeId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            SiteNumber = "C1",
                             SiteTypeId = 1
                         });
                 });

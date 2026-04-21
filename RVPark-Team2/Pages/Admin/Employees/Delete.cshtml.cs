@@ -10,7 +10,7 @@ using RVPark_Team2.Models;
 
 namespace RVPark_Team2.Pages.Admin.Employees
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : AdminPageModel
     {
         private readonly ApplicationDbContext _context;
 

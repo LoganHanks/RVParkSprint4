@@ -20,7 +20,7 @@
             @* If the user is on the admin page, show the admin links instead of the standard links *@
             @if (Context.Request.Path.StartsWithSegments("/Admin"))
             {
-                <a href="/">HOME</a>
+                <a href="/Admin/Index">HOME</a>
                 <a href="/Admin/Sites">SITES</a>
                 @* TODO: Add the pricing page (ADM2)*@
                 <a href="/Admin/Pricing">PRICING</a>
@@ -44,13 +44,15 @@
             @* If the user is on the admin page, show the log out button *@
             @if (Context.Request.Path.StartsWithSegments("/Admin"))
             {
-                <a href="/"><button>Log Out</button></a>
+                <form method="post" asp-page="/LogoutHandler" style="display:inline">
+                    <button type="submit">Log Out</button>
+                </form>
             }
             @* Otherwise, show the log in button *@
             else
             {
                 @* TODO: Add the log in page. For now redirecting to the admin page *@
-                <a href="/Admin"><button>Log In</button></a>
+                <a href="/Login"><button>Log In</button></a>
             }
         </div>
     </header>

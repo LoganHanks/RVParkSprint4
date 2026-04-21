@@ -21,7 +21,13 @@
     new sites have site number and type
 
 -->
-
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="toast-success" id="successToast">
+        <span>@TempData["SuccessMessage"]</span>
+        <button type="button" class="toast-close" onclick="closeToast()">×</button>
+    </div>
+}
 
 <div class="sites-container">
     <h1>Manage Sites</h1>
@@ -68,6 +74,23 @@
     {
         <p>No reservations found</p>
     }
-
-
 </div>
+
+<script>
+    function closeToast() {
+        const toast = document.getElementById("successToast");
+        if (toast) {
+            toast.style.animation = "fadeOut 0.3s ease forwards";
+            setTimeout(() => toast.remove(), 300);
+        }
+    }
+
+    // Auto-dismiss after 3 seconds
+    setTimeout(() => {
+        const toast = document.getElementById("successToast");
+        if (toast) {
+            toast.style.animation = "fadeOut 0.3s ease forwards";
+            setTimeout(() => toast.remove(), 300);
+        }
+    }, 3000);
+</script>

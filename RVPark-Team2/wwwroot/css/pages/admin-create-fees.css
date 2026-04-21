@@ -5,11 +5,11 @@
     min-height: 70vh;
 }
 
-    .create-container h1 {
-        font-size: 42px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
+.create-container h1 {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
 .subtitle {
     margin-bottom: 25px;
@@ -30,18 +30,18 @@
     margin-bottom: 20px;
 }
 
-    .form-group label {
-        margin-bottom: 8px;
-        font-weight: bold;
-    }
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
 
-    .form-group input {
-        padding: 12px 16px;
-        border: none;
-        border-radius: 12px;
-        background-color: #dbe7ea;
-        color: #12343b;
-    }
+.form-group input {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 12px;
+    background-color: #dbe7ea;
+    color: #12343b;
+}
 
 .form-actions {
     margin-top: 10px;
@@ -58,9 +58,9 @@
     transition: background-color 0.2s ease;
 }
 
-    .create-btn:hover {
-        background-color: #c2d3da;
-    }
+.create-btn:hover {
+    background-color: #c2d3da;
+}
 
 .cancel-btn {
     padding: 12px 24px;
@@ -72,9 +72,9 @@
     transition: background-color 0.2s ease;
 }
 
-    .cancel-btn:hover {
-        background-color: #d78f79;
-    }
+.cancel-btn:hover {
+    background-color: #d78f79;
+}
 
 .validation-summary {
     max-width: 650px;
@@ -112,9 +112,9 @@
     transition: background-color 0.2s ease;
 }
 
-    .back-btn:hover {
-        background-color: #c2d3da;
-    }
+.back-btn:hover {
+    background-color: #c2d3da;
+}
 
 .readonly-field {
     padding: 12px 16px;

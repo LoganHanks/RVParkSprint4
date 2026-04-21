@@ -11,7 +11,7 @@ using RVPark_Team2.Models;
 
 namespace RVPark_Team2.Pages.Admin.Employees
 {
-    public class EditModel : PageModel
+    public class EditModel : AdminPageModel
     {
         private readonly ApplicationDbContext _context;
 
