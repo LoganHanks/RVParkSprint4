@@ -183,6 +183,39 @@ namespace RVPark_Team2.Data
                     EndDate = new DateTime(2026, 1, 9),
                     TotalPrice = 100,
                     IsCancelled = true
+                },
+                new Reservation
+                {
+                    Id = 6,
+                    CustomerName = "Customer Customer",
+                    CustomerEmail = "customer@customer.com",
+                    SiteId = 5,
+                    StartDate = new DateTime(2026, 3, 1),
+                    EndDate = new DateTime(2026, 3, 4),
+                    TotalPrice = 105,
+                    IsCancelled = false
+                },
+                new Reservation
+                {
+                    Id = 7,
+                    CustomerName = "Customer Customer",
+                    CustomerEmail = "customer@customer.com",
+                    SiteId = 34,
+                    StartDate = new DateTime(2026, 4, 10),
+                    EndDate = new DateTime(2026, 4, 15),
+                    TotalPrice = 175,
+                    IsCancelled = false
+                },
+                new Reservation
+                {
+                    Id = 8,
+                    CustomerName = "Customer Customer",
+                    CustomerEmail = "customer@customer.com",
+                    SiteId = 50,
+                    StartDate = new DateTime(2026, 2, 14),
+                    EndDate = new DateTime(2026, 2, 17),
+                    TotalPrice = 75,
+                    IsCancelled = true
                 }
             );
 
