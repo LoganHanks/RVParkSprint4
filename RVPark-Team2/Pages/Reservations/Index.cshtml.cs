@@ -45,6 +45,18 @@ namespace RVPark_Team2.Pages.Reservations
                 .ToList();
         }
 
+        public IActionResult OnPostCancel(int reservationId, string email)
+        {
+            var reservation = _context.Reservations.Find(reservationId);
+            if (reservation != null)
+            {
+                reservation.IsCancelled = true;
+                _context.SaveChanges();
+            }
+
+            return RedirectToPage(new { Email = email });
+        }
+
         public class ReservationResult
         {
             public int Id { get; set; }

@@ -57,6 +57,11 @@
                             @if (!r.IsCancelled)
                             {
                                 <a asp-page="Edit" asp-route-id="@r.Id" asp-route-email="@Model.Email" class="edit-btn">Edit</a>
+                                <form method="post" asp-page-handler="Cancel">
+                                    <input type="hidden" name="ReservationId" value="@r.Id" />
+                                    <input type="hidden" name="Email" value="@Model.Email" />
+                                    <button type="submit" class="cancel-btn">Cancel</button>
+                                </form>
                             }
                         </span>
                     </div>
