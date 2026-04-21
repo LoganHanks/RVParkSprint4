@@ -1,0 +1,98 @@
+﻿.reservation-container {
+    background-color: #2f4f58;
+    color: #dbe7ea;
+    padding: 60px 40px;
+    min-height: 70vh;
+}
+
+    .reservation-container h1 {
+        font-size: 42px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+.reservation-form {
+    background-color: #12343b;
+    border-radius: 16px;
+    padding: 30px;
+    display: grid;
+    gap: 22px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+    .form-group label {
+        font-weight: bold;
+        color: #dbe7ea;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: none;
+        background-color: #dbe7ea;
+        color: #12343b;
+        font-size: 1rem;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        min-height: 110px;
+    }
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+    .checkbox-group label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: bold;
+        color: #dbe7ea;
+    }
+
+    .checkbox-group input {
+        width: 18px;
+        height: 18px;
+    }
+
+.form-actions {
+    margin-top: 10px;
+}
+
+.reserve-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    background-color: #9fb8c1;
+    color: #12343b;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+    .reserve-btn:hover {
+        background-color: #c2d3da;
+    }
+
+.validation-summary {
+    background-color: rgba(201, 123, 99, 0.18);
+    border: 1px solid rgba(201, 123, 99, 0.5);
+    color: #ffd9cf;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+}
+
+.field-validation {
+    color: #ffd9cf;
+    font-size: 0.95rem;
+}

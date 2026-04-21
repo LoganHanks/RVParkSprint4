@@ -1,0 +1,39 @@
+﻿@page "{id:int}"
+@model RVPark_Team2.Pages.Reservations.ConfirmationModel
+@{
+    ViewData["Title"] = "Reservation Confirmation";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/reservation-confirmation.css" />
+}
+
+<div class="confirmation-container">
+    <h1>Reservation Confirmed</h1>
+
+    <div class="confirmation-message">
+        <p>Your reservation was submitted successfully.</p>
+        <p>A confirmation email has been sent to <strong>@Model.Reservation.CustomerEmail</strong>. (Simulated)</p>
+    </div>
+
+    <div class="reservation-details">
+        <h2>Reservation Details</h2>
+
+        <p><strong>Reservation ID:</strong> @Model.Reservation.Id</p>
+        <p><strong>Name:</strong> @Model.Reservation.CustomerName</p>
+        <p><strong>Email:</strong> @Model.Reservation.CustomerEmail</p>
+        <p><strong>Check-In:</strong> @Model.Reservation.StartDate.ToShortDateString()</p>
+        <p><strong>Check-Out:</strong> @Model.Reservation.EndDate.ToShortDateString()</p>
+        <p><strong>Adults:</strong> @Model.Reservation.NumberOfAdults</p>
+        <p><strong>Pets:</strong> @(Model.Reservation.Pets ? "Yes" : "No")</p>
+        <p><strong>Vehicle Length:</strong> @(Model.Reservation.VehicleLength.HasValue ? $"{Model.Reservation.VehicleLength} ft" : "N/A")</p>
+        <p><strong>Special Requests:</strong> @(string.IsNullOrWhiteSpace(Model.Reservation.SpecialRequests) ? "None" : Model.Reservation.SpecialRequests)</p>
+        <p><strong>Total Price:</strong> @Model.Reservation.TotalPrice.ToString("C")</p>
+
+        @if (Model.Site != null)
+        {
+            <p><strong>Site Number:</strong> @Model.Site.SiteNumber</p>
+            <p><strong>Site Type:</strong> @Model.Site.SiteType?.Name</p>
+        }
+    </div>
+</div>
