@@ -27,7 +27,19 @@ namespace RVPark_Team2.Pages.Reservations
         [BindProperty]
         public string Email { get; set; } = string.Empty;
 
+        [BindProperty]
+        public decimal OriginalPrice { get; set; }
+
+        [BindProperty]
+        public bool IsValidated { get; set; }
+
+        [BindProperty]
+        public decimal NewPrice { get; set; }
+
         public List<SelectListItem> SiteOptions { get; set; } = new();
+
+        public string? PriceMessage { get; set; }
+        public string? PriceMessageClass { get; set; }
 
         public IActionResult OnGet(int id, string email)
         {
@@ -36,6 +48,7 @@ namespace RVPark_Team2.Pages.Reservations
                 return RedirectToPage("Index", new { Email = email });
 
             OriginalReservationId = existing.Id;
+            OriginalPrice = existing.TotalPrice;
             Email = email;
 
             Reservation = new Reservation
@@ -55,35 +68,35 @@ namespace RVPark_Team2.Pages.Reservations
             return Page();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPostValidate()
         {
             SiteOptions = _reservationService.LoadSiteOptions();
+            IsValidated = false;
 
             if (Reservation.EndDate <= Reservation.StartDate)
-            {
                 ModelState.AddModelError(string.Empty, "Check-out date must be after check-in date.");
-            }
 
             if (!_reservationService.SiteExists(Reservation.SiteId))
-            {
                 ModelState.AddModelError("Reservation.SiteId", "Please select a valid campsite.");
-            }
 
             if (!_reservationService.CheckAvailability(Reservation.SiteId, Reservation.StartDate, Reservation.EndDate, OriginalReservationId))
-            {
                 ModelState.AddModelError(string.Empty, "This campsite is not available for the selected dates.");
-            }
 
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
 
+            NewPrice = _reservationService.CalculatePrice(Reservation.SiteId, Reservation.StartDate, Reservation.EndDate);
+            IsValidated = true;
+            SetPriceMessage();
+
+            return Page();
+        }
+
+        public IActionResult OnPostSave()
+        {
             var original = _context.Reservations.Find(OriginalReservationId);
             if (original != null)
-            {
                 original.IsCancelled = true;
-            }
 
             Reservation.TotalPrice = _reservationService.CalculatePrice(Reservation.SiteId, Reservation.StartDate, Reservation.EndDate);
             Reservation.IsCancelled = false;
@@ -94,6 +107,26 @@ namespace RVPark_Team2.Pages.Reservations
             _context.SaveChanges();
 
             return RedirectToPage("Index", new { Email = Email });
+        }
+
+        private void SetPriceMessage()
+        {
+            decimal diff = NewPrice - OriginalPrice;
+            if (diff > 0)
+            {
+                PriceMessage = $"Payment of {diff:C} is required.";
+                PriceMessageClass = "payment";
+            }
+            else if (diff < 0)
+            {
+                PriceMessage = $"{Math.Abs(diff):C} will be refunded.";
+                PriceMessageClass = "refund";
+            }
+            else
+            {
+                PriceMessage = "No additional payment is required.";
+                PriceMessageClass = "neutral";
+            }
         }
     }
 }

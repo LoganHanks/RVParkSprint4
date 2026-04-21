@@ -75,8 +75,24 @@
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="reserve-btn">Save Changes</button>
+            <button type="submit" asp-page-handler="Validate" class="calculate-btn">Validate Change</button>
+
+            <div class="save-group">
+                @if (Model.IsValidated)
+                {
+                    <button type="submit" asp-page-handler="Save" class="reserve-btn">Save Changes</button>
+                    <span class="price-message @Model.PriceMessageClass">@Model.PriceMessage</span>
+                }
+                else
+                {
+                    <button type="button" class="reserve-btn disabled" disabled>Save Changes</button>
+                }
+            </div>
         </div>
+
+        <input type="hidden" asp-for="OriginalPrice" />
+        <input type="hidden" asp-for="IsValidated" />
+        <input type="hidden" asp-for="NewPrice" />
     </form>
 </div>
 

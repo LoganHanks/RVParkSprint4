@@ -66,6 +66,62 @@
 
 .form-actions {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.save-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.calculate-btn {
+    padding: 12px 24px;
+    border: 2px solid #9fb8c1;
+    border-radius: 25px;
+    background-color: transparent;
+    color: #9fb8c1;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    align-self: flex-start;
+}
+
+    .calculate-btn:hover {
+        background-color: #9fb8c1;
+        color: #12343b;
+    }
+
+.price-message {
+    font-weight: bold;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 12px;
+}
+
+.price-message.payment {
+    background-color: rgba(201, 123, 99, 0.18);
+    border: 1px solid rgba(201, 123, 99, 0.5);
+    color: #ffd9cf;
+}
+
+.price-message.refund {
+    background-color: rgba(159, 184, 193, 0.2);
+    border: 1px solid #9fb8c1;
+    color: #9fb8c1;
+}
+
+.price-message.neutral {
+    background-color: rgba(219, 231, 234, 0.1);
+    border: 1px solid #dbe7ea;
+    color: #dbe7ea;
+}
+
+.reserve-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .reserve-btn {
@@ -82,6 +138,10 @@
     .reserve-btn:hover {
         background-color: #c2d3da;
     }
+
+.validation-summary:empty {
+    display: none;
+}
 
 .validation-summary {
     background-color: rgba(201, 123, 99, 0.18);
