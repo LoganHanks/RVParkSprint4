@@ -21,13 +21,23 @@ namespace RVPark_Team2.Pages.Reservations
 
         public List<SelectListItem> SiteOptions { get; set; } = new();
 
-        public void OnGet(int? siteId)
+        public void OnGet(int? siteId, DateOnly? startDate, DateOnly? endDate)
         {
             LoadSiteOptions();
 
             if (siteId.HasValue)
             {
                 Reservation.SiteId = siteId.Value;
+            }
+
+            if (startDate.HasValue)
+            {
+                Reservation.StartDate = startDate.Value.ToDateTime(TimeOnly.MinValue);
+            }
+
+            if (endDate.HasValue)
+            {
+                Reservation.EndDate = endDate.Value.ToDateTime(TimeOnly.MinValue);
             }
         }
 
