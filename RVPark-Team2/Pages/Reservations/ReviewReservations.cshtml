@@ -1,5 +1,5 @@
 ﻿@page "{id:int}"
-@model RVPark_Team2.Pages.ReviewReservationsModel
+@model RVPark_Team2.Pages.Reservations.ReviewReservationsModel
 
 @{
     ViewData["Title"] = "Review Reservation";
@@ -60,12 +60,15 @@
 
         <!-- TODO: I need to change the routing for the cancel button after the reservation page for customers is created. -->        
         <div class="form-actions">
-            <a asp-page="/Admin/Reservations/Index"
-                   class="cancel-btn">
-                Cancel
-            </a>
+            <form method="post" asp-page-handler="Cancel">
+                <input type="hidden" name="id" value="@Model.Reservation.Id" />
 
-            <a asp-page="/Payment"
+                <button type="submit" class="cancel-btn">
+                    Cancel
+                </button>
+            </form>
+
+            <a asp-page="Payment"
                    asp-route-id="@Model.Reservation.Id"
                    class="proceed-btn">
                 Proceed to Payment

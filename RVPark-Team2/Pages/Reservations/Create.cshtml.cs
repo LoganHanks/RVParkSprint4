@@ -25,6 +25,9 @@ namespace RVPark_Team2.Pages.Reservations
         {
             LoadSiteOptions();
 
+            Reservation.StartDate = DateTime.Today;
+            Reservation.EndDate = DateTime.Today.AddDays(1);
+
             if (siteId.HasValue)
             {
                 Reservation.SiteId = siteId.Value;
@@ -68,7 +71,7 @@ namespace RVPark_Team2.Pages.Reservations
             _context.Reservations.Add(Reservation);
             _context.SaveChanges();
 
-            return RedirectToPage("Confirmation", new { id = Reservation.Id });
+            return RedirectToPage("ReviewReservations", new { id = Reservation.Id });
         }
 
         private void LoadSiteOptions()

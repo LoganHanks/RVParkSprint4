@@ -1,5 +1,5 @@
 ﻿@page "{id:int}"
-@model RVPark_Team2.Pages.PaymentModel
+@model RVPark_Team2.Pages.Reservations.PaymentModel
 
 @{
     ViewData["Title"] = "Payment";
@@ -57,13 +57,12 @@
 
             <div style="display:flex; gap:10px; margin-top:10px;">
 
-                <a asp-page="/ReviewReservations"
+                <a asp-page="ReviewReservations"
                        asp-route-id="@Model.Reservation.Id"
                        class="cancel-btn">
                     Cancel
                 </a>
 
-                <!-- TODO: Link to routing page after its added. -->
                 <button type="submit" class="pay-btn">
                     Pay Now
                 </button>
