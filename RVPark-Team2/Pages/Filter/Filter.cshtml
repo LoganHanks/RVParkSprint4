@@ -1,0 +1,58 @@
+﻿@page
+@model RVPark_Team2.Pages.Filter.FilterModel
+@{
+	ViewData["Title"] = "Filter and View Sites";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/filter-filter.css" />
+}
+
+
+
+
+<div class="sites-container">
+	<h1>Filter and View Sites</h1>
+
+	<form method="get" class="search-sites-form">
+		<select asp-for="SelectedSiteTypeID" asp-items="Model.SiteTypesSelectList">
+			<option value="">All Site Types</option>
+		</select>
+
+		<input asp-for="StartDate" type="date" />
+		<input asp-for="EndDate" type="date" />
+
+		<button type="submit">Filter</button>
+	</form>
+
+	@if (Model.sites.Any())
+	{
+		<div class="sitesTable">
+			<div class="table-header">
+				<span>Site Number</span>
+				<span>Site Type</span>
+				<span>Actions</span>
+			</div>
+
+			@foreach (var site in Model.sites)
+			{
+				<div class="table-row">
+					<span>@site.SiteNumber</span>
+					<span>@site.SiteType.Name</span>
+					<span>
+						<a class="reserve-btn"
+						   asp-page="/Reservations/Create"
+						   asp-route-siteId="@site.Id"
+						   asp-route-startDate="@Model.StartDate"
+						   asp-route-endDate="@Model.EndDate">
+							Reserve
+						</a>
+					</span>
+				</div>
+			}
+		</div>
+	}
+	else
+	{
+		<p>No sites available for the selected criteria.</p>
+	}
+</div>
