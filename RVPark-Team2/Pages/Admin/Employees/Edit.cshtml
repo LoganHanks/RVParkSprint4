@@ -12,9 +12,6 @@
 <div class="edit-container">
     <h1>Edit Employee</h1>
 
-    <h4>Employee</h4>
-    <hr />
-
     <div class="return-container">
         <a class="return-btn" asp-page="Index">Back to List</a>
     </div>
@@ -22,40 +19,47 @@
     <form method="post" class="edit-form">
         <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
 
-        <input type="hidden" asp-for="Employee.Id" />
+        <input type="hidden" asp-for="EmployeeVM.Id" />
 
         <div class="form-group">
-            <label asp-for="Employee.FirstName"></label>
-            <input asp-for="Employee.FirstName" />
-            <span asp-validation-for="Employee.FirstName" class="text-danger"></span>
+            <label asp-for="EmployeeVM.FirstName"></label>
+            <input asp-for="EmployeeVM.FirstName" />
+            <span asp-validation-for="EmployeeVM.FirstName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Employee.LastName"></label>
-            <input asp-for="Employee.LastName" />
-            <span asp-validation-for="Employee.LastName" class="text-danger"></span>
+            <label asp-for="EmployeeVM.LastName"></label>
+            <input asp-for="EmployeeVM.LastName" />
+            <span asp-validation-for="EmployeeVM.LastName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Employee.Email"></label>
-            <input asp-for="Employee.Email" />
-            <span asp-validation-for="Employee.Email" class="text-danger"></span>
+            <label asp-for="EmployeeVM.Email"></label>
+            <input asp-for="EmployeeVM.Email" />
+            <span asp-validation-for="EmployeeVM.Email" class="text-danger"></span>
         </div>
 
         <div class="form-group">
-            <label asp-for="Employee.AccessLevel"></label>
-            <input asp-for="Employee.AccessLevel" />
-            <span asp-validation-for="Employee.AccessLevel" class="text-danger"></span>
+            <label asp-for="EmployeeVM.Password">New Password (optional)</label>
+            <input asp-for="EmployeeVM.Password" type="password" />
+            <span asp-validation-for="EmployeeVM.Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EmployeeVM.AccessLevel"></label>
+            <input asp-for="EmployeeVM.AccessLevel" />
+            <span asp-validation-for="EmployeeVM.AccessLevel" class="text-danger"></span>
         </div>
 
         <div class="form-group form-check">
             <label class="form-check-label">
-                <input class="form-check-input" asp-for="Employee.IsLocked" /> @Html.DisplayNameFor(model => model.Employee.IsLocked)
+                <input class="form-check-input" asp-for="EmployeeVM.IsLocked" />
+                @Html.DisplayNameFor(model => model.EmployeeVM.IsLocked)
             </label>
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Save" class="save-btn" />
+            <button type="submit" class="save-btn">Save Changes</button>
         </div>
     </form>
 </div>
