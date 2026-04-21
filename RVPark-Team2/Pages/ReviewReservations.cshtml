@@ -1,0 +1,78 @@
+﻿@page "{id:int}"
+@model RVPark_Team2.Pages.ReviewReservationsModel
+
+@{
+    ViewData["Title"] = "Review Reservation";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/customer-review-reservations.css" />
+}
+
+<div class="review-container">
+
+    <h1>Review Reservation</h1>
+
+    <div class="review-card">
+
+        <div class="form-group">
+            <label>Reservation</label>
+            <div class="readonly-field">
+                #@Model.Reservation.Id - @Model.Reservation.CustomerName
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Dates</label>
+            <div class="readonly-field">
+                @Model.Reservation.StartDate.ToShortDateString() -
+                @Model.Reservation.EndDate.ToShortDateString()
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Nights</label>
+            <div class="readonly-field">
+                @Model.Nights
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Base Price</label>
+            <div class="readonly-field">
+                $@Model.BaseTotal.ToString("F2")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Fees</label>
+            <div class="readonly-field">
+                $@Model.FeesTotal.ToString("F2")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Total</label>
+            <div class="readonly-field">
+                <strong>$@Model.Total.ToString("F2")</strong>
+            </div>
+        </div>
+
+        <!-- TODO: I need to change the routing for the cancel button after the reservation page for customers is created. -->        
+        <div class="form-actions">
+            <a asp-page="/Admin/Reservations/Index"
+                   class="cancel-btn">
+                Cancel
+            </a>
+
+            <a asp-page="/Payment"
+                   asp-route-id="@Model.Reservation.Id"
+                   class="proceed-btn">
+                Proceed to Payment
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
