@@ -16,7 +16,7 @@ namespace RVPark_Team2.Pages.Reservations
         }
 
         // TODO: Once customer registration is implemented, email search will be removed and replaced with info for the current customer. This is a temporary solution so that I can test cancelling, modifying, and viewing reservations.
-        
+
         [BindProperty(SupportsGet = true)]
         public string? Email { get; set; }
 

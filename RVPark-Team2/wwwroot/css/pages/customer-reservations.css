@@ -51,7 +51,7 @@
 .table-header,
 .table-row {
     display: grid;
-    grid-template-columns: 0.5fr 1.8fr 1.6fr 0.8fr 0.8fr;
+    grid-template-columns: 1.8fr 1.6fr 0.8fr 0.8fr 1fr;
     gap: 20px;
     padding: 18px 24px;
     align-items: center;
@@ -87,4 +87,43 @@
     .status-badge.cancelled {
         background-color: #c97b63;
         color: white;
+    }
+
+.actions-cell {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.edit-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #9fb8c1;
+    color: #12343b;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+    .edit-btn:hover {
+        background-color: #c2d3da;
+    }
+
+.cancel-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #c97b63;
+    color: white;
+    transition: background-color 0.2s ease;
+}
+
+    .cancel-btn:hover {
+        background-color: #d78f79;
     }

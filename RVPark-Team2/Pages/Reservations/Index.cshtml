@@ -27,17 +27,16 @@
         {
             <div class="results-table">
                 <div class="table-header">
-                    <span>ID</span>
                     <span>Dates</span>
                     <span>Site</span>
                     <span>Total</span>
                     <span>Status</span>
+                    <span>Actions</span>
                 </div>
 
                 @foreach (var r in Model.Results)
                 {
                     <div class="table-row">
-                        <span>@r.Id</span>
                         <span>
                             @r.StartDate.ToShortDateString() -
                             @r.EndDate.ToShortDateString()
@@ -52,6 +51,12 @@
                             else
                             {
                                 <span class="status-badge active">Active</span>
+                            }
+                        </span>
+                        <span class="actions-cell">
+                            @if (!r.IsCancelled)
+                            {
+                                <a asp-page="Edit" asp-route-id="@r.Id" asp-route-email="@Model.Email" class="edit-btn">Edit</a>
                             }
                         </span>
                     </div>
