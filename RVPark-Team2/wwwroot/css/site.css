@@ -121,3 +121,52 @@ main {
         transform: translateX(30px);
     }
 }
+
+/* Container to center the cards on the screen */
+.identity-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+
+/* The dark teal card that holds the form */
+.identity-card {
+    background-color: #2f4f58; /* Team Navbar Teal */
+    color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 500px;
+}
+
+    .identity-card h1, .identity-card h2 {
+        color: #e0f2f1;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Styling the input boxes */
+    .identity-card .form-control {
+        border-radius: 10px;
+        border: none;
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+
+    /* Styling the primary action button */
+    .identity-card .btn-submit {
+        background-color: #9fb8c1; /* Team Button Blue */
+        color: #12343b;
+        font-weight: bold;
+        border-radius: 25px;
+        border: none;
+        padding: 12px;
+        transition: 0.2s;
+    }
+
+        .identity-card .btn-submit:hover {
+            background-color: #c2d3da;
+        }
