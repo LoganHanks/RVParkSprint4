@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RVPark_Team2.Data;
 
@@ -11,9 +12,11 @@ using RVPark_Team2.Data;
 namespace RVPark_Team2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260421204032_SeedAllSitesAndTypes")]
+    partial class SeedAllSitesAndTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,45 +211,6 @@ namespace RVPark_Team2.Migrations
                             SiteId = 2,
                             StartDate = new DateTime(2026, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 100m
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CustomerEmail = "customer@customer.com",
-                            CustomerName = "Customer Customer",
-                            EndDate = new DateTime(2026, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsCancelled = false,
-                            NumberOfAdults = 0,
-                            Pets = false,
-                            SiteId = 5,
-                            StartDate = new DateTime(2026, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 105m
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CustomerEmail = "customer@customer.com",
-                            CustomerName = "Customer Customer",
-                            EndDate = new DateTime(2026, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsCancelled = false,
-                            NumberOfAdults = 0,
-                            Pets = false,
-                            SiteId = 34,
-                            StartDate = new DateTime(2026, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 175m
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CustomerEmail = "customer@customer.com",
-                            CustomerName = "Customer Customer",
-                            EndDate = new DateTime(2026, 2, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsCancelled = true,
-                            NumberOfAdults = 0,
-                            Pets = false,
-                            SiteId = 50,
-                            StartDate = new DateTime(2026, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 75m
                         });
                 });
 
