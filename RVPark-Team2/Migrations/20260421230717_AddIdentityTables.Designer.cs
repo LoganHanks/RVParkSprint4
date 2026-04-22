@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RVPark_Team2.Data;
 
@@ -11,9 +12,11 @@ using RVPark_Team2.Data;
 namespace RVPark_Team2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260421230717_AddIdentityTables")]
+    partial class AddIdentityTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,6 +150,71 @@ namespace RVPark_Team2.Migrations
                     b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -230,79 +298,6 @@ namespace RVPark_Team2.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("RVPark_Team2.Models.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("RVPark_Team2.Models.Reservation", b =>
@@ -418,45 +413,6 @@ namespace RVPark_Team2.Migrations
                             SiteId = 2,
                             StartDate = new DateTime(2026, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalPrice = 100m
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CustomerEmail = "customer@customer.com",
-                            CustomerName = "Customer Customer",
-                            EndDate = new DateTime(2026, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsCancelled = false,
-                            NumberOfAdults = 0,
-                            Pets = false,
-                            SiteId = 5,
-                            StartDate = new DateTime(2026, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 105m
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CustomerEmail = "customer@customer.com",
-                            CustomerName = "Customer Customer",
-                            EndDate = new DateTime(2026, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsCancelled = false,
-                            NumberOfAdults = 0,
-                            Pets = false,
-                            SiteId = 34,
-                            StartDate = new DateTime(2026, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 175m
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CustomerEmail = "customer@customer.com",
-                            CustomerName = "Customer Customer",
-                            EndDate = new DateTime(2026, 2, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsCancelled = true,
-                            NumberOfAdults = 0,
-                            Pets = false,
-                            SiteId = 50,
-                            StartDate = new DateTime(2026, 2, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 75m
                         });
                 });
 
@@ -485,344 +441,20 @@ namespace RVPark_Team2.Migrations
                         new
                         {
                             Id = 1,
-                            SiteNumber = "1",
+                            SiteNumber = "A1",
                             SiteTypeId = 1
                         },
                         new
                         {
                             Id = 2,
-                            SiteNumber = "2",
+                            SiteNumber = "B1",
                             SiteTypeId = 1
                         },
                         new
                         {
                             Id = 3,
-                            SiteNumber = "3",
+                            SiteNumber = "C1",
                             SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            SiteNumber = "4",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            SiteNumber = "5",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            SiteNumber = "6",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 7,
-                            SiteNumber = "7",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 8,
-                            SiteNumber = "8",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 9,
-                            SiteNumber = "9",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 10,
-                            SiteNumber = "10",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 11,
-                            SiteNumber = "11",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 12,
-                            SiteNumber = "11B",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 13,
-                            SiteNumber = "12",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 14,
-                            SiteNumber = "12B",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 15,
-                            SiteNumber = "13",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 16,
-                            SiteNumber = "14",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 17,
-                            SiteNumber = "15",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 18,
-                            SiteNumber = "17",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 19,
-                            SiteNumber = "18",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 20,
-                            SiteNumber = "19",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 21,
-                            SiteNumber = "20",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 22,
-                            SiteNumber = "21",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 23,
-                            SiteNumber = "22",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 24,
-                            SiteNumber = "23",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 25,
-                            SiteNumber = "24",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 26,
-                            SiteNumber = "25",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 27,
-                            SiteNumber = "26",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 28,
-                            SiteNumber = "27",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 29,
-                            SiteNumber = "28",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 30,
-                            SiteNumber = "29",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 31,
-                            SiteNumber = "30",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 32,
-                            SiteNumber = "31",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 33,
-                            SiteNumber = "C",
-                            SiteTypeId = 1
-                        },
-                        new
-                        {
-                            Id = 34,
-                            SiteNumber = "32",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 35,
-                            SiteNumber = "33",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 36,
-                            SiteNumber = "34",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 37,
-                            SiteNumber = "35",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 38,
-                            SiteNumber = "36",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 39,
-                            SiteNumber = "37",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 40,
-                            SiteNumber = "38",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 41,
-                            SiteNumber = "39",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 42,
-                            SiteNumber = "40",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 43,
-                            SiteNumber = "41",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 44,
-                            SiteNumber = "42",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 45,
-                            SiteNumber = "43",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 46,
-                            SiteNumber = "44",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 47,
-                            SiteNumber = "45",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 48,
-                            SiteNumber = "A",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 49,
-                            SiteNumber = "B",
-                            SiteTypeId = 2
-                        },
-                        new
-                        {
-                            Id = 50,
-                            SiteNumber = "D-1",
-                            SiteTypeId = 3
-                        },
-                        new
-                        {
-                            Id = 51,
-                            SiteNumber = "D-2",
-                            SiteTypeId = 3
-                        },
-                        new
-                        {
-                            Id = 52,
-                            SiteNumber = "D-3",
-                            SiteTypeId = 3
-                        },
-                        new
-                        {
-                            Id = 53,
-                            SiteNumber = "D-4",
-                            SiteTypeId = 3
-                        },
-                        new
-                        {
-                            Id = 54,
-                            SiteNumber = "D-5",
-                            SiteTypeId = 3
-                        },
-                        new
-                        {
-                            Id = 55,
-                            SiteNumber = "D-6",
-                            SiteTypeId = 3
-                        },
-                        new
-                        {
-                            Id = 56,
-                            SiteNumber = "D-7",
-                            SiteTypeId = 3
-                        },
-                        new
-                        {
-                            Id = 57,
-                            SiteNumber = "T-1",
-                            SiteTypeId = 4
                         });
                 });
 
@@ -886,26 +518,8 @@ namespace RVPark_Team2.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "Standard back-in RV site",
-                            Name = "Back-In"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Standard pull-through RV site",
-                            Name = "Pull-Through"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Dry camping site with no hook-ups",
-                            Name = "Dry"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Tent-only camping site",
-                            Name = "Tent"
+                            Description = "Site with all utility hookups",
+                            Name = "Full Hookup"
                         });
                 });
 
@@ -939,29 +553,8 @@ namespace RVPark_Team2.Migrations
                         new
                         {
                             Id = 1,
-                            Price = 35.00m,
+                            Price = 50.00m,
                             SiteTypeId = 1,
-                            StartDate = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Price = 35.00m,
-                            SiteTypeId = 2,
-                            StartDate = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Price = 25.00m,
-                            SiteTypeId = 3,
-                            StartDate = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Price = 25.00m,
-                            SiteTypeId = 4,
                             StartDate = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -988,7 +581,7 @@ namespace RVPark_Team2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("RVPark_Team2.Models.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -997,7 +590,7 @@ namespace RVPark_Team2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("RVPark_Team2.Models.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1012,7 +605,7 @@ namespace RVPark_Team2.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RVPark_Team2.Models.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1021,7 +614,7 @@ namespace RVPark_Team2.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("RVPark_Team2.Models.ApplicationUser", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -1,3 +1,10 @@
+@*Added these with AI *@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@using Microsoft.AspNetCore.Identity
+@using RVPark_Team2.Models
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,23 +43,37 @@
                 <a href="/Filter/Filter">AVAILABILITY</a>
                 <a href="/Reservations">RESERVATIONS</a>
                 <a href="#">CONTACT</a>
+                <a asp-area="Identity" asp-page="/Account/Register">CREATE ACCOUNT</a>
             }
 
         </div>
 
         <div class="login">
-            @* If the user is on the admin page, show the log out button *@
             @if (Context.Request.Path.StartsWithSegments("/Admin"))
             {
                 <form method="post" asp-page="/LogoutHandler" style="display:inline">
                     <button type="submit">Log Out</button>
                 </form>
             }
-            @* Otherwise, show the log in button *@
             else
             {
-                @* TODO: Add the log in page. For now redirecting to the admin page *@
-                <a href="/Login"><button>Log In</button></a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <span style="margin-right: 15px;">Hello @UserManager.GetUserName(User)!</span>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post" style="display:inline">
+                        <button type="submit">Log Out</button>
+                    </form>
+                }
+                else
+                {
+                    @* We wrap both in a div and give them the same button style *@
+                    <a asp-area="Identity" asp-page="/Account/Login" style="margin-right: 10px;">
+                        <button type="button">Login</button>
+                    </a>
+                    <a href="/Login">
+                        <button type="button">Employee Log In</button>
+                    </a>
+                }
             }
         </div>
     </header>
