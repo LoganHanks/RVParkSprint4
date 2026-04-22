@@ -1,0 +1,77 @@
+@page
+@model RVPark_Team2.Pages.Reservations.IndexModel
+@{
+    ViewData["Title"] = "My Reservations";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/pages/customer-reservations.css" />
+}
+
+<div class="reservations-container">
+
+    <h1>My Reservations</h1>
+
+    <form method="get" class="search-form">
+        <input type="email"
+               name="Email"
+               value="@Model.Email"
+               placeholder="Enter your email address"
+               required />
+        <button type="submit">Search</button>
+    </form>
+
+    @if (!string.IsNullOrEmpty(Model.Email))
+    {
+        @if (Model.Results.Any())
+        {
+            <div class="results-table">
+                <div class="table-header">
+                    <span>Dates</span>
+                    <span>Site</span>
+                    <span>Total</span>
+                    <span>Status</span>
+                    <span>Actions</span>
+                </div>
+
+                @foreach (var r in Model.Results)
+                {
+                    <div class="table-row">
+                        <span>
+                            @r.StartDate.ToShortDateString() -
+                            @r.EndDate.ToShortDateString()
+                        </span>
+                        <span>@r.SiteName</span>
+                        <span>@r.TotalPrice.ToString("C")</span>
+                        <span>
+                            @if (r.IsCancelled)
+                            {
+                                <span class="status-badge cancelled">Cancelled</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge active">Active</span>
+                            }
+                        </span>
+                        <span class="actions-cell">
+                            @if (!r.IsCancelled)
+                            {
+                                <a asp-page="Edit" asp-route-id="@r.Id" asp-route-email="@Model.Email" class="edit-btn">Edit</a>
+                                <form method="post" asp-page-handler="Cancel">
+                                    <input type="hidden" name="ReservationId" value="@r.Id" />
+                                    <input type="hidden" name="Email" value="@Model.Email" />
+                                    <button type="submit" class="cancel-btn">Cancel</button>
+                                </form>
+                            }
+                        </span>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>No reservations found for that email.</p>
+        }
+    }
+
+</div>

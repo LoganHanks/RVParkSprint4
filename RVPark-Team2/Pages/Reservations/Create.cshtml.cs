@@ -1,19 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using RVPark_Team2.Data;
 using RVPark_Team2.Models;
+using RVPark_Team2.Services;
 
 namespace RVPark_Team2.Pages.Reservations
 {
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly ReservationService _reservationService;
 
-        public CreateModel(ApplicationDbContext context)
+        public CreateModel(ApplicationDbContext context, ReservationService reservationService)
         {
             _context = context;
+            _reservationService = reservationService;
         }
 
         [BindProperty]
@@ -23,7 +25,10 @@ namespace RVPark_Team2.Pages.Reservations
 
         public void OnGet(int? siteId, DateOnly? startDate, DateOnly? endDate)
         {
-            LoadSiteOptions();
+            SiteOptions = _reservationService.LoadSiteOptions();
+
+            Reservation.StartDate = DateTime.Today;
+            Reservation.EndDate = DateTime.Today.AddDays(1);
 
             if (siteId.HasValue)
             {
@@ -43,26 +48,19 @@ namespace RVPark_Team2.Pages.Reservations
 
         public IActionResult OnPost()
         {
-            LoadSiteOptions();
+            SiteOptions = _reservationService.LoadSiteOptions();
 
             if (Reservation.EndDate <= Reservation.StartDate)
             {
                 ModelState.AddModelError(string.Empty, "Check-out date must be after check-in date.");
             }
 
-            bool siteExists = _context.Sites.Any(s => s.Id == Reservation.SiteId);
-            if (!siteExists)
+            if (!_reservationService.SiteExists(Reservation.SiteId))
             {
                 ModelState.AddModelError("Reservation.SiteId", "Please select a valid campsite.");
             }
 
-            bool isAvailable = !_context.Reservations.Any(r =>
-                r.SiteId == Reservation.SiteId &&
-                !r.IsCancelled &&
-                Reservation.StartDate < r.EndDate &&
-                Reservation.EndDate > r.StartDate);
-
-            if (!isAvailable)
+            if (!_reservationService.CheckAvailability(Reservation.SiteId, Reservation.StartDate, Reservation.EndDate))
             {
                 ModelState.AddModelError(string.Empty, "This campsite is not available for the selected dates.");
             }
@@ -72,51 +70,13 @@ namespace RVPark_Team2.Pages.Reservations
                 return Page();
             }
 
-            Reservation.TotalPrice = CalculatePrice(Reservation);
+            Reservation.TotalPrice = _reservationService.CalculatePrice(Reservation.SiteId, Reservation.StartDate, Reservation.EndDate);
             Reservation.IsCancelled = false;
 
             _context.Reservations.Add(Reservation);
             _context.SaveChanges();
 
-            return RedirectToPage("Confirmation", new { id = Reservation.Id });
-        }
-
-        private void LoadSiteOptions()
-        {
-            SiteOptions = _context.Sites
-                .Include(s => s.SiteType)
-                .Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = $"Site {s.SiteNumber} - {s.SiteType.Name}"
-                })
-                .ToList();
-        }
-
-        private decimal CalculatePrice(Reservation reservation)
-        {
-            int nights = (reservation.EndDate - reservation.StartDate).Days;
-            if (nights < 1) return 0;
-
-            var site = _context.Sites
-                .Include(s => s.SiteType)
-                .FirstOrDefault(s => s.Id == reservation.SiteId);
-
-            if (site == null)
-            {
-                return nights * 50m;
-            }
-
-            var priceRecord = _context.SiteTypePrices
-                .Where(p => p.SiteTypeId == site.SiteTypeId &&
-                            p.StartDate <= reservation.StartDate &&
-                            (p.EndDate == null || p.EndDate >= reservation.StartDate))
-                .OrderByDescending(p => p.StartDate)
-                .FirstOrDefault();
-
-            decimal nightlyRate = priceRecord?.Price ?? 50m;
-
-            return nights * nightlyRate;
+            return RedirectToPage("ReviewReservations", new { id = Reservation.Id });
         }
     }
 }
