@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using RVPark_Team2.Data;
@@ -13,16 +12,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register Identity (this adds UserManager<ApplicationUser>, SignInManager, etc.)
-builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
-    {
-        // change to true if you want confirmed email required for sign-in
-        options.SignIn.RequireConfirmedAccount = false;
-    })
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-// Register email sender used by the Identity UI (Register / ConfirmEmail)
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<ReservationService>();
 
