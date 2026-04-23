@@ -22,6 +22,9 @@ builder.Services.AddScoped<ReservationService>();
 // Add Razor Pages
 builder.Services.AddRazorPages();
 
+// Add controllers so API endpoints (e.g. /api/sites/availability) work
+builder.Services.AddControllers();
+
 // Add session support
 builder.Services.AddDistributedMemoryCache(); // required for session
 builder.Services.AddSession(options =>
@@ -48,7 +51,12 @@ app.UseRouting();
 // Enable session before Razor Pages
 app.UseSession();
 
+// Identity requires Authentication middleware before Authorization
+app.UseAuthentication();
 app.UseAuthorization();
+
+// Map controller routes for API endpoints
+app.MapControllers();
 
 app.MapStaticAssets();
 app.MapRazorPages()

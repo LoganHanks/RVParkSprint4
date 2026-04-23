@@ -170,3 +170,85 @@ main {
         .identity-card .btn-submit:hover {
             background-color: #c2d3da;
         }
+/* FullCalendar theme overrides to match site styling */
+.fc {
+    font-family: inherit;
+    color: #12343b; /* primary text color */
+}
+
+    /* Header (month title + nav) */
+    .fc .fc-toolbar {
+        background: linear-gradient(90deg, #2f4f58, #1f3840);
+        color: #e0f2f1;
+        padding: 8px 12px;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .fc .fc-toolbar-title {
+        font-weight: 700;
+        color: #e0f2f1;
+    }
+
+    .fc .fc-button {
+        background: #9fb8c1;
+        color: #12343b;
+        border: none;
+        box-shadow: none;
+    }
+
+        .fc .fc-button:hover {
+            background: #c2d3da;
+        }
+
+    /* Day names and numbers */
+    .fc .fc-col-header-cell, .fc .fc-daygrid-day-number {
+        color: #12343b;
+        font-weight: 600;
+    }
+
+    /* Event styling */
+    .fc .fc-daygrid-event {
+        background: #9fb8c1 !important;
+        border: 1px solid #78a2a9 !important;
+        color: #083236 !important;
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-weight: 600;
+    }
+
+#siteCalendar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.fc .fc-daygrid-day-number {
+    color: #12343b !important;
+    text-decoration: none !important;
+    font-weight: 700;
+    padding: 4px 6px;
+    border-radius: 6px;
+}
+
+/* Calendar container styling */
+#siteCalendar {
+    background: linear-gradient(180deg, #ffffff, #f7fbfb);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+/* Modal tweaks to blend with theme */
+.modal-content {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background: #2f4f58;
+    color: #e0f2f1;
+    border-bottom: none;
+}
+
+.modal-body {
+    background: linear-gradient(180deg, #f8faf9, #ffffff);
+}

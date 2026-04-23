@@ -63,5 +63,18 @@ namespace RVPark_Team2.Services
 
             return nights * nightlyRate;
         }
+
+        // Return booked ranges for a single site (non-cancelled)
+        public List<SiteReservationDto> GetReservationsForSite(int siteId)
+        {
+            return _context.Reservations
+                .Where(r => r.SiteId == siteId && !r.IsCancelled)
+                .Select(r => new SiteReservationDto
+                {
+                    StartDate = r.StartDate,
+                    EndDate = r.EndDate
+                })
+                .ToList();
+        }
     }
 }

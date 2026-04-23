@@ -17,6 +17,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
+    <!-- FullCalendar CSS (used by availability modal) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" />
+
+    <!-- FullCalendar JS (global build) loaded in head so pages can use it synchronously -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
     @RenderSection("Styles", required: false)
 
     <link rel="stylesheet" href="~/RVPark_Team2.styles.css" asp-append-version="true" />
