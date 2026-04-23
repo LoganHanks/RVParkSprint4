@@ -1,9 +1,8 @@
-using RVPark_Team2.Data;
-using RVPark_Team2.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using RVPark_Team2.Data;
 using RVPark_Team2.Models;
-using RVPark_Team2.Services;
 using RVPark_Team2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,10 +13,24 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Register Identity (this adds UserManager<ApplicationUser>, SignInManager, etc.)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+    {
+        // change to true if you want confirmed email required for sign-in
+        options.SignIn.RequireConfirmedAccount = false;
+    })
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Register email sender used by the Identity UI (Register / ConfirmEmail)
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
 builder.Services.AddScoped<ReservationService>();
 
 // Add Razor Pages
 builder.Services.AddRazorPages();
+
+// Add controllers so API endpoints (e.g. /api/sites/availability) work
+builder.Services.AddControllers();
 
 // Add session support
 builder.Services.AddDistributedMemoryCache(); // required for session
@@ -45,7 +58,12 @@ app.UseRouting();
 // Enable session before Razor Pages
 app.UseSession();
 
+// Identity requires Authentication middleware before Authorization
+app.UseAuthentication();
 app.UseAuthorization();
+
+// Map controller routes for API endpoints
+app.MapControllers();
 
 app.MapStaticAssets();
 app.MapRazorPages()

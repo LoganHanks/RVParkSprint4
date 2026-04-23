@@ -8,8 +8,6 @@ namespace RVPark_Team2.Pages
     {
         public void OnGet()
         {
-/*            string hash = BCrypt.Net.BCrypt.HashPassword("12345");
-            Debug.WriteLine(hash);  // prints to Visual Studio Output window*/
         }
     }
 }

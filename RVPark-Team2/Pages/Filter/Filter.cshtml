@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="~/css/pages/filter-filter.css" />
 }
 
-
-
-
 <div class="sites-container">
 	<h1>Filter and View Sites</h1>
 
@@ -33,6 +30,86 @@
 				<span>Actions</span>
 			</div>
 
+<!-- Availability modal and FullCalendar (styles and script are loaded in _Layout.cshtml) -->
+
+<div class="modal fade" id="siteAvailabilityModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><span id="siteAvailabilityTitle">Site availability</span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="siteCalendar"></div>
+        <style>
+          /* Ensure the calendar container has space to render */
+          #siteCalendar { min-height: 420px; }
+          .fc .fc-daygrid-event { background-color: #ff5c5c; border: none; }
+        </style>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function openAvailability(siteId, siteName) {
+    const modalEl = document.getElementById('siteAvailabilityModal');
+
+    try {
+      if (typeof bootstrap === 'undefined' || !modalEl) {
+        alert('UI framework not loaded or modal element missing.');
+        return;
+      }
+      const modal = new bootstrap.Modal(modalEl);
+      // set modal title to include site name if supplied
+      const titleEl = document.getElementById('siteAvailabilityTitle');
+      if (titleEl) titleEl.textContent = siteName ? `Site ${siteName} availability` : 'Site availability';
+      const res = await fetch(`/api/sites/availability/${siteId}`);
+      if (!res.ok) {
+        alert('Availability not found for that site.');
+        return;
+      }
+      const events = await res.json();
+
+      if (window.siteCalendar) {
+        try { window.siteCalendar.destroy(); } catch (e) { console.warn(e); }
+      }
+
+      const calendarEl = document.getElementById('siteCalendar');
+      if (!calendarEl) {
+        alert('Calendar container not found.');
+        return;
+      }
+      calendarEl.innerHTML = '';
+
+      // FullCalendar is expected to be loaded in the layout. Create the calendar directly.
+      if (typeof FullCalendar === 'undefined' || !FullCalendar.Calendar) {
+        alert('Calendar library is not loaded.');
+        return;
+      }
+
+      window.siteCalendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,dayGridWeek,dayGridDay' },
+        buttonText: { today: 'Today', month: 'Month', week: 'Week', day: 'Day' },
+        navLinks: false,
+        height: 600,
+        eventColor: '#ff7b7b',
+        events: events.map(e => ({ title: e.title, start: e.start, end: e.end })),
+        selectable: false
+      });
+
+      const onShown = () => { try { window.siteCalendar.render(); } catch (err) { console.warn('FC render error', err); } modalEl.removeEventListener('shown.bs.modal', onShown); };
+      modalEl.addEventListener('shown.bs.modal', onShown);
+
+      modal.show();
+    } catch (err) {
+      console.error('openAvailability error:', err);
+      alert('Error fetching availability: ' + (err && err.message ? err.message : err));
+    }
+  }
+</script>
+
 			@foreach (var site in Model.sites)
 			{
 				<div class="table-row">
@@ -46,6 +123,7 @@
 						   asp-route-endDate="@Model.EndDate">
 							Reserve
 						</a>
+                        <button type="button" class="btn btn-sm btn-outline-primary ms-2" onclick="openAvailability(@site.Id, '@(site.SiteNumber)')">View availability</button>
 					</span>
 				</div>
 			}
