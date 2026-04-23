@@ -1,9 +1,7 @@
-using RVPark_Team2.Data;
-using RVPark_Team2.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using RVPark_Team2.Data;
 using RVPark_Team2.Models;
-using RVPark_Team2.Services;
 using RVPark_Team2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
+
+AddTransient<IEmailSender, EmailSender>()
+
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<ReservationService>();
 
